@@ -4,6 +4,8 @@ spring:
       url: jdbc:mysql://192.168.51.122:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true
       username: miuser
       password: miuser
+#    main:
+#      banner-mode: off
 mybatis:
     type-aliases-package: com.xj2.fixed.model
     config-location: classpath:mybatis.xml
@@ -12,3 +14,31 @@ security:
   user:
     name: admin
     password: admin
+server:
+  port: 8080
+#  port: 8443
+#  ssl:
+#    key-store: /home/keen/work_space/FixedAsset/src/main/resources/mykeys.jks 
+#logging:
+#  path: /tmp/logs/
+#  file: fa.log
+#  level:
+#   root: INFO
+#   org:
+#     springframework:
+#     security: DEBUG
+
+#---
+#
+#spring:
+#  profiles: product
+#  
+#logging:
+#  path: /tmp/product/
+#  file: log.log
+#
+#---
+#
+#spring:
+#  profiles: develop
+#  

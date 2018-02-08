@@ -3,13 +3,13 @@ spring:
       driverClassName : com.mysql.jdbc.Driver
       url: jdbc:mysql://192.168.51.122:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true
       username: miuser
-      password: miuser
+      password: miuser%^NMP
     thymeleaf:
       cache: false
 mybatis:
     type-aliases-package: com.xj2.fixed.model
     config-location: classpath:mybatis.xml
-#    mapper-locations: classpath:mybatis/mapper/*.xml
+    mapper-locations: classpath:mybatis/mapper/*.xml
 logging:
   level:
     org.springframework.security: INFO

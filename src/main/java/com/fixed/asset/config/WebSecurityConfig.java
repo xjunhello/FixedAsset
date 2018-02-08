@@ -21,6 +21,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserService()); //user Details Service验证
 
     }
+    
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()

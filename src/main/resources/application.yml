@@ -13,7 +13,3 @@ mybatis:
 logging:
   level:
     org.springframework.security: INFO
-#security:
-#  user:
-#    name: admin
-#    password: admin

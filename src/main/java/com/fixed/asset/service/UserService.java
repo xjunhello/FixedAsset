@@ -1,11 +1,14 @@
 package com.fixed.asset.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fixed.asset.mapper.UserMapper;
 import com.fixed.asset.model.User;
+import com.fixed.asset.model.UserExample;
 
 
 @Service
@@ -18,19 +21,17 @@ public class UserService {
     }
 
     public User add(User user) {
-        userMapper.add(user);
+        userMapper.insert(user);
         return findById(user.getId());
     }
 
     public User findById(int id) {
-        User user = new User();
-        user.setId(id);
-        return userMapper.findOne(user);
+        return userMapper.selectByPrimaryKey(id);
     }
 
-    public User findByName(String name) {
-        User param = new User();
-        param.setName(name);
-        return userMapper.findOne(param);
+    public List<User> findByName(String name) {
+        UserExample um = new UserExample();
+        um.createCriteria().andNameLike(name);
+        return userMapper.selectByExample(um);
     }
 }

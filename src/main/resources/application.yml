@@ -10,6 +10,8 @@ mybatis:
     type-aliases-package: com.xj2.fixed.model
     config-location: classpath:mybatis.xml
     mapper-locations: classpath:mybatis/mapper/*.xml
+#    configuration:
+#      lazy-loading-enabled: true
 logging:
   level:
     org.springframework.security: INFO

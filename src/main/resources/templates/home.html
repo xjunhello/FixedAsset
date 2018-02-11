@@ -37,11 +37,11 @@ body {
 
         <p class="bg-primary" th:text="${msg.content}"></p>
 
-        <div sec:authorize="hasRole('ROLE_ADMIN')"> <!-- 用户类型为ROLE_ADMIN 显示 -->
+        <div sec:authorize="hasRole('ADMIN')"> <!-- 用户类型为ROLE_ADMIN 显示 -->
             <p class="bg-info" th:text="${msg.etraInfo}"></p>
         </div>  
 
-        <div sec:authorize="hasRole('ROLE_USER')"> <!-- 用户类型为 ROLE_USER 显示 -->
+        <div sec:authorize="hasRole('USER')"> <!-- 用户类型为 ROLE_USER 显示 -->
             <p class="bg-info">无更多信息显示</p>
         </div>  
 

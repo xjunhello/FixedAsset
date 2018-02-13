@@ -21,7 +21,7 @@ public class HomeController {
     public String dashboard(Model model){
         Msg msg =  new Msg("测试标题","测试内容1111111111111111111","额外信息11111111111111111111111，只对管理员显示");
         model.addAttribute("msg", msg);
-        return "bashbaord";
+        return "home";
     }
 
 }

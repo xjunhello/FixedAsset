@@ -2,13 +2,18 @@ package com.fixed.asset.model;
 
 import java.util.List;
 
+//import javax.persistence.ManyToMany;
+
 public class User {
     private Integer userId;
 
     private String userName;
 
     private String password;
+    
     private List<Role> roles;
+    
+//    @ManyToMany(mappedBy="")
     public List<Role> getRoles() {
 		return roles;
 	}

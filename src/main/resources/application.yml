@@ -15,3 +15,7 @@ mybatis:
 logging:
   level:
     org.springframework.security: INFO
+    org.mybatis: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: DEBUG
+#  file: logs/spring-boot-logging.log

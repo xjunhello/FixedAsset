@@ -1,26 +1,26 @@
 package com.fixed.asset.model;
 
 public class Resource {
-    private Integer id;
+    private Integer resourceId;
 
-    private String name;
+    private String resourceName;
 
     private String remark;
 
-    public Integer getId() {
-        return id;
+    public Integer getResourceId() {
+        return resourceId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
-    public String getName() {
-        return name;
+    public String getResourceName() {
+        return resourceName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName == null ? null : resourceName.trim();
     }
 
     public String getRemark() {

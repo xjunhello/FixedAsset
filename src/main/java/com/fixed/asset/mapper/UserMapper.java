@@ -10,15 +10,16 @@ public interface UserMapper {
 
     int deleteByExample(UserExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer userId);
 
     int insert(User record);
 
     int insertSelective(User record);
 
     List<User> selectByExample(UserExample example);
-
-    User selectByPrimaryKey(Integer id);
+    List<User> selectUserAndRolesByExample(UserExample example);
+    
+    User selectByPrimaryKey(Integer userId);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 

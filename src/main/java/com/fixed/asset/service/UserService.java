@@ -22,7 +22,7 @@ public class UserService {
 
     public User add(User user) {
         userMapper.insert(user);
-        return findById(user.getId());
+        return findById(user.getUserId());
     }
 
     public User findById(int id) {
@@ -31,7 +31,7 @@ public class UserService {
 
     public List<User> findByName(String name) {
         UserExample um = new UserExample();
-        um.createCriteria().andNameLike(name);
-        return userMapper.selectByExample(um);
+        um.createCriteria().andUserNameLike(name);
+        return userMapper.selectUserAndRolesByExample(um);
     }
 }

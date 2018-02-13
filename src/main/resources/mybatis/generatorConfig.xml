@@ -53,7 +53,7 @@
         </javaClientGenerator>  
         <!-- 指定数据库表 -->  
         <!--<table tableName="items"></table> -->  
-        <table tableName="user"></table>  
+        <table tableName="user" ></table>  
         <table tableName="role"></table>  
         <table tableName="resource"></table> 
         <table tableName="user_role"></table> 

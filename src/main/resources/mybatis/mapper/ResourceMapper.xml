@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fixed.asset.mapper.ResourceMapper">
   <resultMap id="BaseResultMap" type="com.fixed.asset.model.Resource">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="resource_name" jdbcType="VARCHAR" property="resourceName" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, remark
+    resource_id, resource_name, remark
   </sql>
   <select id="selectByExample" parameterType="com.fixed.asset.model.ResourceExample" resultMap="BaseResultMap">
     select
@@ -85,11 +85,11 @@
     select 
     <include refid="Base_Column_List" />
     from resource
-    where id = #{id,jdbcType=INTEGER}
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from resource
-    where id = #{id,jdbcType=INTEGER}
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.fixed.asset.model.ResourceExample">
     delete from resource
@@ -98,30 +98,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fixed.asset.model.Resource">
-    insert into resource (id, name, remark
+    insert into resource (resource_id, resource_name, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+    values (#{resourceId,jdbcType=INTEGER}, #{resourceName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.fixed.asset.model.Resource">
     insert into resource
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="resourceId != null">
+        resource_id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="resourceName != null">
+        resource_name,
       </if>
       <if test="remark != null">
         remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="resourceName != null">
+        #{resourceName,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -137,11 +137,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update resource
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.resourceName != null">
+        resource_name = #{record.resourceName,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
@@ -153,8 +153,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update resource
-    set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+    set resource_id = #{record.resourceId,jdbcType=INTEGER},
+      resource_name = #{record.resourceName,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -163,19 +163,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.fixed.asset.model.Resource">
     update resource
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="resourceName != null">
+        resource_name = #{resourceName,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fixed.asset.model.Resource">
     update resource
-    set name = #{name,jdbcType=VARCHAR},
+    set resource_name = #{resourceName,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -2,14 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fixed.asset.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.fixed.asset.model.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <association property="roles" javaType="com.fixed.asset.model.Role"  select="findRolesByUser" column="id"/> 
   </resultMap>
-  <select id="findRolesByUser" parameterType="int" resultType="com.fixed.asset.model.Role">
-  	select r.* from role r ,user_role ur where r.id = ur.role_id and ur.user_id = #{value}
-  </select>
+  <resultMap type="com.fixed.asset.model.User" id="UserAndRoleResult" extends="BaseResultMap">
+  		<collection property="roles" ofType="com.fixed.asset.model.Role" >
+  			<id property="roleId" column="role_id" javaType="java.lang.Integer" />
+            <result property="roleName" column="role_name" javaType="java.lang.String" />
+  		</collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -69,8 +71,23 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, password
+    user_id, user_name, password
   </sql>
+    <select id="selectUserAndRolesByExample" parameterType="com.fixed.asset.model.UserExample" resultMap="UserAndRoleResult">
+    select
+    u.*,r.* 
+    from user u left join user_role ur 
+    on u.user_id = ur.user_id 
+    left join role r
+    on ur.role_id = r.role_id 
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
   <select id="selectByExample" parameterType="com.fixed.asset.model.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -89,11 +106,11 @@
     select 
     <include refid="Base_Column_List" />
     from user
-    where id = #{id,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
-    where id = #{id,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.fixed.asset.model.UserExample">
     delete from user
@@ -102,30 +119,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fixed.asset.model.User">
-    insert into user (id, name, password
+    insert into user (user_id, user_name, password
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.fixed.asset.model.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="userId != null">
+        user_id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="userName != null">
+        user_name,
       </if>
       <if test="password != null">
         password,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -141,11 +158,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update user
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
@@ -157,8 +174,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update user
-    set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -167,19 +184,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.fixed.asset.model.User">
     update user
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fixed.asset.model.User">
     update user
-    set name = #{name,jdbcType=VARCHAR},
+    set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

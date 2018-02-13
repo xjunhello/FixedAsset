@@ -23,10 +23,10 @@ public class CustomUserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) { // 重写loadUserByUsername 方法获得 userdetails 类型用户
 		User temp = new User();
-		temp.setName(username);
+		temp.setUserName(username);
 		UserExample example = new UserExample();
-		example.createCriteria().andNameEqualTo(username.trim());
-		List<User> us = userMapper.selectByExample(example);
+		example.createCriteria().andUserNameEqualTo(username.trim());
+		List<User> us = userMapper.selectUserAndRolesByExample(example);
 		if (us == null || us.size()<=0) {
 			throw new UsernameNotFoundException("用户名不存在");
 		}
@@ -36,9 +36,9 @@ public class CustomUserDetailService implements UserDetailsService {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		// 用于添加用户的权限。只要把用户权限添加到authorities 就万事大吉。
 		for (Role role : us.get(0).getRoles()) {
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
-			System.out.println(role.getName());
+			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+			System.out.println(role.getRoleName());
 		}
-		return new org.springframework.security.core.userdetails.User(us.get(0).getName(), us.get(0).getPassword(), authorities);
+		return new org.springframework.security.core.userdetails.User(us.get(0).getUserName(), us.get(0).getPassword(), authorities);
 	}
 }

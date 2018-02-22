@@ -1,9 +1,9 @@
 spring:
     datasource:
       driverClassName : com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.51.122:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true
-      username: miuser
-      password: miuser%^NMP
+      url: jdbc:mysql://127.0.0.1:3306/fixedasset?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+      username: fa
+      password: 123456
     thymeleaf:
       cache: false
 mybatis:

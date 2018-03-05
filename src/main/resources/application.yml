@@ -6,6 +6,8 @@ spring:
       password: 123456
     thymeleaf:
       cache: false
+      mode: LEGACYHTML5
+      content-type: text/html; charset=utf-8
 mybatis:
     type-aliases-package: com.xj2.fixed.model
     config-location: classpath:mybatis.xml

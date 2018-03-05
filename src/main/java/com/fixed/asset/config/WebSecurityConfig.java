@@ -26,8 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated() // 登录后可以访问
-                .antMatchers("/static/*").permitAll() //静态资源开放权限
+                //.anyRequest().authenticated() // 登录后可以访问
+                .antMatchers("/static/.*").permitAll() //静态资源开放权限
                 .and()
                 .formLogin()
                 .loginPage("/login")

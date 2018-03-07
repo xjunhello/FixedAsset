@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error")
-                .defaultSuccessUrl("/dashboard")
+                .defaultSuccessUrl("/home")
                 .permitAll() //登录页面用户任意访问           
                 .and()
                 .logout().permitAll(); //注销行为任意访问

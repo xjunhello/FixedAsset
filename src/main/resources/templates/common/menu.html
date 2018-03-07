@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree" th:fragment="menu(activeId)">
+        <li class="header">功能模块</li>
+        <li class="active" th:class="${activeId == '0' } ? 'active' ">
+          <a href="pages/widgets.html">
+            <i class="fa fa-th"></i> <span>待办事项</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green">6</small>
+            </span>
+          </a>
+        </li>
+        <li class="treeview" th:class="${activeId == '1' || activeId == '2'  || activeId == '3'  } ? 'active treeview' : 'treeview'">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>权限管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li th:class="${activeId == '1' } ? 'active'"><a href="index.html"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+            <li th:class="${activeId == '2' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> 用户管理</a></li>
+            <li th:class="${activeId == '3' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>库存管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> 入库申请</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> 入库审批</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 入库管理</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 出库申请</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 出库审批</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 出库管理</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产分配</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产回收</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产报废</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产盘点</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 打印入库单</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 打印出库单</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产转移</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 通用查询</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>系统管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>资产类别维护</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> 领用维护</a></li>
+            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> 操作日志</a></li>
+          </ul>
+        </li>
+      </ul>
+</html>

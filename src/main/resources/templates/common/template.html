@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"  >
 
-  <!-- ----------------------------Ãæ°üÐ¼µ¼º½£º¿ªÊ¼ ------------------------------>
+  <!-- ----------------------------é¢åŒ…å±‘å¯¼èˆªï¼šå¼€å§‹ ------------------------------>
  <section class="content-header" th:fragment="breadcrumb(activeMenuId)">
       <h1>
-        	Èë¿â¹ÜÀí
-        <small>Èë¿âµ¥ÁÐ±í</small>
+        	å…¥åº“ç®¡ç†
+        <small>å…¥åº“å•åˆ—è¡¨</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Ê×Ò³</a></li>
-        <li><a href="#">¿â´æ¹ÜÀí</a></li>
-        <li class="active">Èë¿â¹ÜÀí</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> é¦–é¡µ</a></li>
+        <li><a href="#">åº“å­˜ç®¡ç†</a></li>
+        <li class="active">å…¥åº“ç®¡ç†</li>
       </ol>
     </section>
- <!-- ----------------------------Ãæ°üÐ¼µ¼º½£º¿ªÊ¼ ------------------------------>
+ <!-- ----------------------------é¢åŒ…å±‘å¯¼èˆªï¼šå¼€å§‹ ------------------------------>
  
  
-    <!-- ----------------------------Ò³ÃæÍ·²¿ÄÚÈÝ£º¿ªÊ¼ ------------------------------>
+    <!-- ----------------------------é¡µé¢å¤´éƒ¨å†…å®¹ï¼šå¼€å§‹ ------------------------------>
     <header class="main-header" th:fragment="header(userId)">
     <!-- Logo -->
     <a  class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>¹Ì</b>¹Ü</span>
+      <span class="logo-mini"><b>å›º</b>ç®¡</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Ñ§Ð£¹Ì×Ê¹ÜÀí</b>ÏµÍ³</span>
+      <span class="logo-lg"><b>å­¦æ ¡å›ºèµ„ç®¡ç†</b>ç³»ç»Ÿ</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -39,7 +39,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="user-image" alt="User Image" />
-              <span class="hidden-xs">ÕÅÖ÷ÈÎ</span>
+              <span class="hidden-xs">å¼ ä¸»ä»»</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -51,10 +51,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">¸öÈËÒÇ±íÅÌ</a>
+                  <a href="#" class="btn btn-default btn-flat">ä¸ªäººä»ªè¡¨ç›˜</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">×¢ÏúµÇÂ½</a>
+                  <a href="#" class="btn btn-default btn-flat">æ³¨é”€ç™»é™†</a>
                 </div>
               </li>
             </ul>
@@ -63,10 +63,10 @@
       </div>
     </nav>
   </header>
-  <!-- ----------------------------Ò³ÃæÍ·²¿ÄÚÈÝ£º½áÊø ------------------------------>
+  <!-- ----------------------------é¡µé¢å¤´éƒ¨å†…å®¹ï¼šç»“æŸ ------------------------------>
   
   
-  <!-- ----------------------------×ó²à²Ëµ¥À¸£º¿ªÊ¼ ------------------------------>
+  <!-- ----------------------------å·¦ä¾§èœå•æ ï¼šå¼€å§‹ ------------------------------>
 
   <aside class="main-sidebar" th:fragment="menu(activeId,userId)">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -77,14 +77,14 @@
           <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image"/>
         </div>
         <div class="pull-left info">
-          <p>ÕÅÖ÷ÈÎ</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> ÔÚÏß</a>
+          <p>å¼ ä¸»ä»»</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> åœ¨çº¿</a>
         </div>
       </div>
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="ËÑË÷...">
+          <input type="text" name="q" class="form-control" placeholder="æœç´¢...">
           <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -94,10 +94,10 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree" >
-        <li class="header">¹¦ÄÜÄ£¿é</li>
+        <li class="header">åŠŸèƒ½æ¨¡å—</li>
         <li class="active" th:class="${activeId == '0' } ? 'active' ">
           <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>´ý°ìÊÂÏî</span>
+            <i class="fa fa-th"></i> <span>å¾…åŠžäº‹é¡¹</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green">6</small>
             </span>
@@ -105,54 +105,54 @@
         </li>
         <li class="treeview" th:class="${activeId == '1' || activeId == '2'  || activeId == '3'  } ? 'active treeview' : 'treeview'">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>È¨ÏÞ¹ÜÀí</span>
+            <i class="fa fa-dashboard"></i> <span>æƒé™ç®¡ç†</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li th:class="${activeId == '1' } ? 'active'"><a href="index.html"><i class="fa fa-circle-o"></i> ½ÇÉ«¹ÜÀí</a></li>
-            <li th:class="${activeId == '2' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> ÓÃ»§¹ÜÀí</a></li>
-            <li th:class="${activeId == '3' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> ²Ëµ¥¹ÜÀí</a></li>
+            <li th:class="${activeId == '1' } ? 'active'"><a href="index.html"><i class="fa fa-circle-o"></i> è§’è‰²ç®¡ç†</a></li>
+            <li th:class="${activeId == '2' } ? 'active'"><a href="index2.html" th:href="@{/user/get}"><i class="fa fa-circle-o"></i> ç”¨æˆ·ç®¡ç†</a></li>
+            <li th:class="${activeId == '3' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> èœå•ç®¡ç†</a></li>
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>¿â´æ¹ÜÀí</span>
+            <span>åº“å­˜ç®¡ç†</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Èë¿âÉêÇë</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Èë¿âÉóÅú</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Èë¿â¹ÜÀí</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ³ö¿âÉêÇë</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ³ö¿âÉóÅú</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ³ö¿â¹ÜÀí</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ×Ê²ú·ÖÅä</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ×Ê²ú»ØÊÕ</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ×Ê²ú±¨·Ï</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ×Ê²úÅÌµã</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ´òÓ¡Èë¿âµ¥</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ´òÓ¡³ö¿âµ¥</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> ×Ê²ú×ªÒÆ</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Í¨ÓÃ²éÑ¯</a></li>
+            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> å…¥åº“ç”³è¯·</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> å…¥åº“å®¡æ‰¹</a></li>
+            <li><a href="pages/layout/fixed.html" ><i class="fa fa-circle-o"></i> å…¥åº“ç®¡ç†</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> å‡ºåº“ç”³è¯·</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> å‡ºåº“å®¡æ‰¹</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> å‡ºåº“ç®¡ç†</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> èµ„äº§åˆ†é…</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> èµ„äº§å›žæ”¶</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> èµ„äº§æŠ¥åºŸ</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> èµ„äº§ç›˜ç‚¹</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> æ‰“å°å…¥åº“å•</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> æ‰“å°å‡ºåº“å•</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> èµ„äº§è½¬ç§»</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> é€šç”¨æŸ¥è¯¢</a></li>
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
-            <span>ÏµÍ³¹ÜÀí</span>
+            <span>ç³»ç»Ÿç®¡ç†</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>×Ê²úÀà±ðÎ¬»¤</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> ÁìÓÃÎ¬»¤</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> ²Ù×÷ÈÕÖ¾</a></li>
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>èµ„äº§ç±»åˆ«ç»´æŠ¤</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> é¢†ç”¨ç»´æŠ¤</a></li>
+            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> æ“ä½œæ—¥å¿—</a></li>
           </ul>
         </li>
       </ul>
@@ -160,16 +160,16 @@
     <!-- /.sidebar -->
   </aside>
   
-    <!-- ----------------------------×ó²à²Ëµ¥À¸£º½áÊø ------------------------------>
+    <!-- ----------------------------å·¦ä¾§èœå•æ ï¼šç»“æŸ ------------------------------>
     
-    <!-- ----------------------------Ò³Ãæµ×²¿£º¿ªÊ¼ ------------------------------>
+    <!-- ----------------------------é¡µé¢åº•éƒ¨ï¼šå¼€å§‹ ------------------------------>
     <!-- /.content-wrapper -->
   <footer class="main-footer" th:fragment="footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 0.1
     </div>
-    <strong>Copyright &copy; 2018-2099 <a href="https://adminlte.io">±±¾©½»Í¨´óÑ§¸½ÊôÖÐÑ§</a>.</strong> All rights
+    <strong>Copyright &copy; 2018-2099 <a href="https://adminlte.io">åŒ—äº¬äº¤é€šå¤§å­¦é™„å±žä¸­å­¦</a>.</strong> All rights
     reserved.
   </footer>
-  <!-- ----------------------------Ò³Ãæµ×²¿£º½áÊø ------------------------------>
+  <!-- ----------------------------é¡µé¢åº•éƒ¨ï¼šç»“æŸ ------------------------------>
   </html>

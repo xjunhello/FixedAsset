@@ -7,7 +7,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-<header th:replace="/common/header"></header>
+<header th:replace="/common/template :: header(1)"></header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar" th:replace="/common/template :: menu('2','1')"></aside>
   
@@ -15,58 +15,155 @@
   <div class="content-wrapper">
   <section class="content-header" th:replace="/common/template :: breadcrumb('2')"></section>
     
-    <div class="row">
-  <div class="col-lg-12 col-xs-12">
-    <div class="box">
-            <div class="box-header">
-              <h4 class="box-title">入库单列表</h4>
+     <!-- Main content -->
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>150</h3>
+
+              <p>新增入库</p>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example2" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>申请时间</th>
-                  <th>申请人</th>
-                  <th>资产总额</th>
-                  <th>状态</th>
-                  <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tfoot>
-                	<tr>
-                  <th>申请时间</th>
-                  <th>申请人</th>
-                  <th>资产总额</th>
-                  <th>状态</th>
-                  <th>操作</th>
-                </tr>
-                </tfoot>
-              </table>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
             </div>
-            <!-- /.box-body -->
+            <a href="#" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-          <!-- /.box -->
-  
-  </div>
-</div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+              <p>新增出库</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>44</h3>
+
+              <p>资产盘点</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>65</h3>
+
+              <p>资产维护</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+     
+    </section>
+    <!-- /.content -->
+    
+    <div class="row">
+    	<div class="col-sm-12">
+    		<!-- TO DO List -->
+			<div class="box box-primary">
+			  <div class="box-header">
+			    <i class="ion ion-clipboard"></i>
+			
+			    <h3 class="box-title">待办事项</h3>
+			
+			    <div class="box-tools pull-right">
+			      <ul class="pagination pagination-sm inline">
+			        <li><a href="#">&laquo;</a></li>
+			        <li><a href="#">1</a></li>
+			        <li><a href="#">2</a></li>
+			        <li><a href="#">3</a></li>
+			        <li><a href="#">&raquo;</a></li>
+			      </ul>
+			    </div>
+			  </div>
+			  <!-- /.box-header -->
+			  <div class="box-body">
+			    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+			    <ul class="todo-list">
+			      <li>
+			        <!-- drag handle -->
+			        <span class="handle">
+			              <i class="fa fa-ellipsis-v"></i>
+			              <i class="fa fa-ellipsis-v"></i>
+			            </span>
+			        <!-- checkbox -->
+			        <input type="checkbox" value="">
+			        <!-- todo text -->
+			        <span class="text">入库单待审批！</span>
+			        <!-- Emphasis label -->
+			        <small class="label label-danger"><i class="fa fa-clock-o"></i> 1天</small>
+			        <!-- General tools such as edit or delete-->
+			        <div class="tools">
+			          <i class="fa fa-edit"></i>
+			          <i class="fa fa-trash-o"></i>
+			        </div>
+			      </li>
+			      <li>
+			            <span class="handle">
+			              <i class="fa fa-ellipsis-v"></i>
+			              <i class="fa fa-ellipsis-v"></i>
+			            </span>
+			        <input type="checkbox" value="">
+			        <span class="text">维修申请待审批</span>
+			        <small class="label label-info"><i class="fa fa-clock-o"></i> 4 小时以前</small>
+			        <div class="tools">
+			          <i class="fa fa-edit"></i>
+			          <i class="fa fa-trash-o"></i>
+			        </div>
+			      </li>
+			      
+			      <li>
+			            <span class="handle">
+			              <i class="fa fa-ellipsis-v"></i>
+			              <i class="fa fa-ellipsis-v"></i>
+			            </span>
+			        <input type="checkbox" value="">
+			        <span class="text">两份入库单待打印</span>
+			        <small class="label label-info"><i class="fa fa-clock-o"></i> 本周完成</small>
+			        <div class="tools">
+			          <i class="fa fa-edit"></i>
+			          <i class="fa fa-trash-o"></i>
+			        </div>
+			      </li>
+			    </ul>
+			  </div>
+			  <!-- /.box-body-->
+			  <div class="box-footer clearfix no-border">
+			    <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> 新增</button>
+			  </div>
+			  
+			</div>
+			<!-- /.box -->
+    	</div>
+    </div>
   </div>  
   <!-- /.content-wrapper -->
   <footer class="main-footer" th:replace="/common/template :: footer">
@@ -77,6 +174,6 @@
 </div>
 <!-- ./wrapper -->
 
-<span th:replace="/common/commonJs"></span>
+<span th:replace="/common/common_js"></span>
 </body>
 </html>

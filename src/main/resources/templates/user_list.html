@@ -1,399 +1,211 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:include="/common/head :: commonHead('用户管理')">
+<head th:include="/common/common_css :: commonHead('首页')">
 <meta content="text/html;charset=UTF-8"/>
-<title sec:authentication="name"></title></head>
-<body class="hold-transition skin-blue sidebar-mini">
+<title sec:authentication="name"></title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" style="font-size: 11">
 <div class="wrapper">
-
-  <header class="main-header">
-    <!-- Logo -->
-    <a th:href="@{ALTE/index2.html}" href="/ALTE/index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>固</b>管</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>学校固资管理</b>系统</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-         
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="user-image" alt="User Image" />
-              <span class="hidden-xs">张主任</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image"/>
-              </li>
-              <!-- Menu Body -->
-             
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">个人仪表盘</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">注销登陆</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li> -->
-        </ul>
-      </div>
-    </nav>
-  </header>
+<header th:replace="/common/template :: header(1)"></header>
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image"/>
-        </div>
-        <div class="pull-left info">
-          <p>张主任</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="搜索...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-       <ul th:replace="/common/menu :: menu('3')"></ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
+  <aside class="main-sidebar" th:replace="/common/template :: menu('2','1')"></aside>
+  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  <section class="content-header">
-      <h1>
-        	入库管理
-        <small>入库单列表</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="#">库存管理</a></li>
-        <li class="active">入库管理</li>
-      </ol>
-    </section>
-    
-    <div class="row">
-  <div class="col-lg-12 col-xs-12">
-    <div class="box">
-            <div class="box-header">
-              <h4 class="box-title">入库单列表</h4>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example2" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>申请时间</th>
-                  <th>申请人</th>
-                  <th>资产总额</th>
-                  <th>状态</th>
-                  <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>40.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>李主任
-                  </td>
-                  <td>30.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>张主任
-                  </td>
-                  <td>10.0万</td>
-                  <td>已审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                 <tr>
-                  <td>2018-01-01</td>
-                  <td>王主任
-                  </td>
-                  <td>50.0万</td>
-                  <td>待审批</td>
-                  <td><a>通过</a><a>驳回</a><a>查看</a></td>
-                </tr>
-                <tfoot>
-                	<tr>
-                  <th>申请时间</th>
-                  <th>申请人</th>
-                  <th>资产总额</th>
-                  <th>状态</th>
-                  <th>操作</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-  
-  </div>
-</div>
+  <section class="content-header" th:replace="/common/template :: breadcrumb('2')"></section>
+  <section class="content">
+  	<!-- 查询 start -->
+    		<div class="row" style="font-size:small;">
+		  		<div class="col-sm-12">
+		   		 <div class="box box-info">
+		            <div class="box-header">
+		              	<div class="pull-left">
+                    		<a class="btn-primary btn-xs " th:href="@{/user/add}">新增</a>
+                  		</div>
+		              	<div class="pull-left">
+                    		
+                  		</div>
+		            </div>
+		            <!-- /.box-header -->
+	                <form class="form-horizontal">
+	                  <div class="box-body">
+	                    <div class="form-group">
+	                      <label for="inputEmail3" class="col-sm-2 control-label">入库单编号</label>
+	
+	                      <div class="col-sm-12 col-md-3">
+	                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+	                      </div>
+	                      <label for="inputEmail3" class="col-sm-2 control-label">入库单类型</label>
+	
+	                      <div class="col-sm-12 col-md-3">
+	                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+	                      </div>
+	                      
+	                      <div class="col-sm-12 col-md-2 pull-right">
+	                      	<button type="submit" class="btn btn-info btn-xs pull-right">提交</button>
+	                      </div>
+	                    </div>
+	                    <div class="form-group">
+	                      <div class="col-sm-offset-2 col-sm-10">
+	                        <div class="checkbox">
+	                          <label>
+	                            <input type="checkbox"> 已审批
+	                          </label>
+	                        </div>
+	                      </div>
+	                    </div>
+	                  </div>
+	                </form>
+		            <!-- /.box-body -->
+		          </div>
+		          <!-- /.box -->
+		  
+			  </div>
+			</div>
+    		<!-- 查询 end -->
+		    <!-- 数据 start-->
+		    	<div class="row">
+		  		<div class="col-lg-12 col-xs-12">
+		   		 <div class="box box-primary">
+		            <div class="box-header">
+		              <h4 class="box-title">入库单列表</h4>
+		            </div>
+		            <!-- /.box-header -->
+		            <div class="box-body">
+		              <table id="example2" class="table table-bordered table-striped table-hover table-condensed">
+		                <thead>
+		                <tr>
+		                  <th>申请时间</th>
+		                  <th>申请人</th>
+		                  <th>资产总额</th>
+		                  <th>状态</th>
+		                  <th width="15%">操作</th>
+		                </tr>
+		                </thead>
+		                <tbody>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	
+		                  	<button type="button" class="btn  btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                 <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>40.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		                <tr>
+		                  <td>2018-01-01</td>
+		                  <td>王主任
+		                  </td>
+		                  <td>50.0万</td>
+		                  <td>待审批</td>
+		                  <td>
+		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
+		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
+		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  </td>
+		                </tr>
+		              </table>
+		            </div>
+		            <!-- /.box-body -->
+		          </div>
+		          <!-- /.box -->
+		  
+		  </div>
+		</div>
+		    <!-- 数据 end  -->
+  </section>		
   </div>  
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 0.1
-    </div>
-    <strong>Copyright &copy; 2018-2099 <a href="https://adminlte.io">北京交通大学附属中学</a>.</strong> All rights
-    reserved.
+  <footer class="main-footer" th:replace="/common/template :: footer">
   </footer>
 
  
@@ -401,6 +213,24 @@
 </div>
 <!-- ./wrapper -->
 
-<span th:replace="/common/on-load-js :: commonJs"></span>
+<span th:replace="/common/common_js"></span>
+<!-- page script -->
+<script>
+  $(function () {
+    $('#example2').DataTable({
+        "language": {
+            "url": "ALTE/bower_components/datatables.net/datatable.zh_CN.lang"
+        }
+    })
+  })
+  /*{
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    }*/
+</script>
 </body>
 </html>

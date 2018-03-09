@@ -17,7 +17,7 @@ public class HomeController {
         return "home";
     }
     
-    @RequestMapping("/page/${pageName}")
+    @RequestMapping("/page/{pageName}")
     public String mirror(Model model,@PathVariable("pageName") String pageName){
         return pageName;
     }

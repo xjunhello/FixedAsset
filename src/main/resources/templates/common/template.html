@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  >
+
+  <!-- ----------------------------面包屑导航：开始 ------------------------------>
+ <section class="content-header" th:fragment="breadcrumb(activeMenuId)">
+      <h1>
+        	入库管理
+        <small>入库单列表</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a href="#">库存管理</a></li>
+        <li class="active">入库管理</li>
+      </ol>
+    </section>
+ <!-- ----------------------------面包屑导航：开始 ------------------------------>
+ 
+ 
+    <!-- ----------------------------页面头部内容：开始 ------------------------------>
+    <header class="main-header" th:fragment="header(userId)">
+    <!-- Logo -->
+    <a  class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>固</b>管</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>学校固资管理</b>系统</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+         
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="user-image" alt="User Image" />
+              <span class="hidden-xs">张主任</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image"/>
+              </li>
+              <!-- Menu Body -->
+             
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">个人仪表盘</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" class="btn btn-default btn-flat">注销登陆</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- ----------------------------页面头部内容：结束 ------------------------------>
+  
+  
+  <!-- ----------------------------左侧菜单栏：开始 ------------------------------>
+
+  <aside class="main-sidebar" th:fragment="menu(activeId,userId)">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img th:src="@{ALTE/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image"/>
+        </div>
+        <div class="pull-left info">
+          <p>张主任</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="搜索...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree" >
+        <li class="header">功能模块</li>
+        <li class="active" th:class="${activeId == '0' } ? 'active' ">
+          <a href="pages/widgets.html">
+            <i class="fa fa-th"></i> <span>待办事项</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green">6</small>
+            </span>
+          </a>
+        </li>
+        <li class="treeview" th:class="${activeId == '1' || activeId == '2'  || activeId == '3'  } ? 'active treeview' : 'treeview'">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>权限管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li th:class="${activeId == '1' } ? 'active'"><a href="index.html"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+            <li th:class="${activeId == '2' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> 用户管理</a></li>
+            <li th:class="${activeId == '3' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>库存管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> 入库申请</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> 入库审批</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 入库管理</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 出库申请</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 出库审批</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 出库管理</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产分配</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产回收</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产报废</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产盘点</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 打印入库单</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 打印出库单</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 资产转移</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 通用查询</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>系统管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>资产类别维护</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> 领用维护</a></li>
+            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> 操作日志</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  
+    <!-- ----------------------------左侧菜单栏：结束 ------------------------------>
+    
+    <!-- ----------------------------页面底部：开始 ------------------------------>
+    <!-- /.content-wrapper -->
+  <footer class="main-footer" th:fragment="footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 0.1
+    </div>
+    <strong>Copyright &copy; 2018-2099 <a href="https://adminlte.io">北京交通大学附属中学</a>.</strong> All rights
+    reserved.
+  </footer>
+  <!-- ----------------------------页面底部：结束 ------------------------------>
+  </html>

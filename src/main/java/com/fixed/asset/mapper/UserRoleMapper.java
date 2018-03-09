@@ -1,7 +1,7 @@
 package com.fixed.asset.mapper;
 
-import com.fixed.asset.model.UserRole;
 import com.fixed.asset.model.UserRoleExample;
+import com.fixed.asset.model.UserRoleKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,13 +10,15 @@ public interface UserRoleMapper {
 
     int deleteByExample(UserRoleExample example);
 
-    int insert(UserRole record);
+    int deleteByPrimaryKey(UserRoleKey key);
 
-    int insertSelective(UserRole record);
+    int insert(UserRoleKey record);
 
-    List<UserRole> selectByExample(UserRoleExample example);
+    int insertSelective(UserRoleKey record);
 
-    int updateByExampleSelective(@Param("record") UserRole record, @Param("example") UserRoleExample example);
+    List<UserRoleKey> selectByExample(UserRoleExample example);
 
-    int updateByExample(@Param("record") UserRole record, @Param("example") UserRoleExample example);
+    int updateByExampleSelective(@Param("record") UserRoleKey record, @Param("example") UserRoleExample example);
+
+    int updateByExample(@Param("record") UserRoleKey record, @Param("example") UserRoleExample example);
 }

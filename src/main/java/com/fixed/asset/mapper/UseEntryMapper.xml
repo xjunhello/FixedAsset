@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fixed.asset.mapper.UseEntryMapper">
+  <resultMap id="BaseResultMap" type="com.fixed.asset.model.UseEntry">
+    <id column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="u_code" jdbcType="VARCHAR" property="uCode" />
+    <result column="u_name" jdbcType="VARCHAR" property="uName" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="u_status" jdbcType="INTEGER" property="uStatus" />
+    <result column="u_birthday" jdbcType="DATE" property="uBirthday" />
+    <result column="u_sex" jdbcType="INTEGER" property="uSex" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="u_type" jdbcType="BIT" property="uType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    u_id, u_code, u_name, group_id, u_status, u_birthday, u_sex, is_delete, u_type
+  </sql>
+  <select id="selectByExample" parameterType="com.fixed.asset.model.UseEntryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from use_entry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from use_entry
+    where u_id = #{uId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from use_entry
+    where u_id = #{uId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fixed.asset.model.UseEntryExample">
+    delete from use_entry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fixed.asset.model.UseEntry">
+    insert into use_entry (u_id, u_code, u_name, 
+      group_id, u_status, u_birthday, 
+      u_sex, is_delete, u_type)
+    values (#{uId,jdbcType=INTEGER}, #{uCode,jdbcType=VARCHAR}, #{uName,jdbcType=VARCHAR}, 
+      #{groupId,jdbcType=INTEGER}, #{uStatus,jdbcType=INTEGER}, #{uBirthday,jdbcType=DATE}, 
+      #{uSex,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{uType,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fixed.asset.model.UseEntry">
+    insert into use_entry
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="uCode != null">
+        u_code,
+      </if>
+      <if test="uName != null">
+        u_name,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="uStatus != null">
+        u_status,
+      </if>
+      <if test="uBirthday != null">
+        u_birthday,
+      </if>
+      <if test="uSex != null">
+        u_sex,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="uType != null">
+        u_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="uCode != null">
+        #{uCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null">
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="uStatus != null">
+        #{uStatus,jdbcType=INTEGER},
+      </if>
+      <if test="uBirthday != null">
+        #{uBirthday,jdbcType=DATE},
+      </if>
+      <if test="uSex != null">
+        #{uSex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="uType != null">
+        #{uType,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fixed.asset.model.UseEntryExample" resultType="java.lang.Long">
+    select count(*) from use_entry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update use_entry
+    <set>
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uCode != null">
+        u_code = #{record.uCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uName != null">
+        u_name = #{record.uName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null">
+        group_id = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uStatus != null">
+        u_status = #{record.uStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.uBirthday != null">
+        u_birthday = #{record.uBirthday,jdbcType=DATE},
+      </if>
+      <if test="record.uSex != null">
+        u_sex = #{record.uSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.uType != null">
+        u_type = #{record.uType,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update use_entry
+    set u_id = #{record.uId,jdbcType=INTEGER},
+      u_code = #{record.uCode,jdbcType=VARCHAR},
+      u_name = #{record.uName,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=INTEGER},
+      u_status = #{record.uStatus,jdbcType=INTEGER},
+      u_birthday = #{record.uBirthday,jdbcType=DATE},
+      u_sex = #{record.uSex,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      u_type = #{record.uType,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fixed.asset.model.UseEntry">
+    update use_entry
+    <set>
+      <if test="uCode != null">
+        u_code = #{uCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null">
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="uStatus != null">
+        u_status = #{uStatus,jdbcType=INTEGER},
+      </if>
+      <if test="uBirthday != null">
+        u_birthday = #{uBirthday,jdbcType=DATE},
+      </if>
+      <if test="uSex != null">
+        u_sex = #{uSex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="uType != null">
+        u_type = #{uType,jdbcType=BIT},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fixed.asset.model.UseEntry">
+    update use_entry
+    set u_code = #{uCode,jdbcType=VARCHAR},
+      u_name = #{uName,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=INTEGER},
+      u_status = #{uStatus,jdbcType=INTEGER},
+      u_birthday = #{uBirthday,jdbcType=DATE},
+      u_sex = #{uSex,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      u_type = #{uType,jdbcType=BIT}
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+</mapper>

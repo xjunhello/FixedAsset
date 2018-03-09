@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fixed.asset.mapper.AllotMapper">
+  <resultMap id="BaseResultMap" type="com.fixed.asset.model.Allot">
+    <id column="allot_id" jdbcType="INTEGER" property="allotId" />
+    <result column="allot_code" jdbcType="VARCHAR" property="allotCode" />
+    <result column="outstock_id" jdbcType="INTEGER" property="outstockId" />
+    <result column="use_user_id" jdbcType="INTEGER" property="useUserId" />
+    <result column="use_user_name" jdbcType="VARCHAR" property="useUserName" />
+    <result column="use_place" jdbcType="VARCHAR" property="usePlace" />
+    <result column="allot_status" jdbcType="TINYINT" property="allotStatus" />
+    <result column="allot_time" jdbcType="TIMESTAMP" property="allotTime" />
+    <result column="allot_user_id" jdbcType="INTEGER" property="allotUserId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    allot_id, allot_code, outstock_id, use_user_id, use_user_name, use_place, allot_status, 
+    allot_time, allot_user_id
+  </sql>
+  <select id="selectByExample" parameterType="com.fixed.asset.model.AllotExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from allot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from allot
+    where allot_id = #{allotId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from allot
+    where allot_id = #{allotId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fixed.asset.model.AllotExample">
+    delete from allot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fixed.asset.model.Allot">
+    insert into allot (allot_id, allot_code, outstock_id, 
+      use_user_id, use_user_name, use_place, 
+      allot_status, allot_time, allot_user_id
+      )
+    values (#{allotId,jdbcType=INTEGER}, #{allotCode,jdbcType=VARCHAR}, #{outstockId,jdbcType=INTEGER}, 
+      #{useUserId,jdbcType=INTEGER}, #{useUserName,jdbcType=VARCHAR}, #{usePlace,jdbcType=VARCHAR}, 
+      #{allotStatus,jdbcType=TINYINT}, #{allotTime,jdbcType=TIMESTAMP}, #{allotUserId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fixed.asset.model.Allot">
+    insert into allot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="allotId != null">
+        allot_id,
+      </if>
+      <if test="allotCode != null">
+        allot_code,
+      </if>
+      <if test="outstockId != null">
+        outstock_id,
+      </if>
+      <if test="useUserId != null">
+        use_user_id,
+      </if>
+      <if test="useUserName != null">
+        use_user_name,
+      </if>
+      <if test="usePlace != null">
+        use_place,
+      </if>
+      <if test="allotStatus != null">
+        allot_status,
+      </if>
+      <if test="allotTime != null">
+        allot_time,
+      </if>
+      <if test="allotUserId != null">
+        allot_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="allotId != null">
+        #{allotId,jdbcType=INTEGER},
+      </if>
+      <if test="allotCode != null">
+        #{allotCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outstockId != null">
+        #{outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="useUserId != null">
+        #{useUserId,jdbcType=INTEGER},
+      </if>
+      <if test="useUserName != null">
+        #{useUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="usePlace != null">
+        #{usePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="allotStatus != null">
+        #{allotStatus,jdbcType=TINYINT},
+      </if>
+      <if test="allotTime != null">
+        #{allotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allotUserId != null">
+        #{allotUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fixed.asset.model.AllotExample" resultType="java.lang.Long">
+    select count(*) from allot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update allot
+    <set>
+      <if test="record.allotId != null">
+        allot_id = #{record.allotId,jdbcType=INTEGER},
+      </if>
+      <if test="record.allotCode != null">
+        allot_code = #{record.allotCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outstockId != null">
+        outstock_id = #{record.outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.useUserId != null">
+        use_user_id = #{record.useUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.useUserName != null">
+        use_user_name = #{record.useUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usePlace != null">
+        use_place = #{record.usePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allotStatus != null">
+        allot_status = #{record.allotStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.allotTime != null">
+        allot_time = #{record.allotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.allotUserId != null">
+        allot_user_id = #{record.allotUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update allot
+    set allot_id = #{record.allotId,jdbcType=INTEGER},
+      allot_code = #{record.allotCode,jdbcType=VARCHAR},
+      outstock_id = #{record.outstockId,jdbcType=INTEGER},
+      use_user_id = #{record.useUserId,jdbcType=INTEGER},
+      use_user_name = #{record.useUserName,jdbcType=VARCHAR},
+      use_place = #{record.usePlace,jdbcType=VARCHAR},
+      allot_status = #{record.allotStatus,jdbcType=TINYINT},
+      allot_time = #{record.allotTime,jdbcType=TIMESTAMP},
+      allot_user_id = #{record.allotUserId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fixed.asset.model.Allot">
+    update allot
+    <set>
+      <if test="allotCode != null">
+        allot_code = #{allotCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outstockId != null">
+        outstock_id = #{outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="useUserId != null">
+        use_user_id = #{useUserId,jdbcType=INTEGER},
+      </if>
+      <if test="useUserName != null">
+        use_user_name = #{useUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="usePlace != null">
+        use_place = #{usePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="allotStatus != null">
+        allot_status = #{allotStatus,jdbcType=TINYINT},
+      </if>
+      <if test="allotTime != null">
+        allot_time = #{allotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allotUserId != null">
+        allot_user_id = #{allotUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where allot_id = #{allotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fixed.asset.model.Allot">
+    update allot
+    set allot_code = #{allotCode,jdbcType=VARCHAR},
+      outstock_id = #{outstockId,jdbcType=INTEGER},
+      use_user_id = #{useUserId,jdbcType=INTEGER},
+      use_user_name = #{useUserName,jdbcType=VARCHAR},
+      use_place = #{usePlace,jdbcType=VARCHAR},
+      allot_status = #{allotStatus,jdbcType=TINYINT},
+      allot_time = #{allotTime,jdbcType=TIMESTAMP},
+      allot_user_id = #{allotUserId,jdbcType=INTEGER}
+    where allot_id = #{allotId,jdbcType=INTEGER}
+  </update>
+</mapper>

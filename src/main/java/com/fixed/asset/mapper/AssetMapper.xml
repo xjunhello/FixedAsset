@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fixed.asset.mapper.AssetMapper">
+  <resultMap id="BaseResultMap" type="com.fixed.asset.model.Asset">
+    <id column="asset_id" jdbcType="INTEGER" property="assetId" />
+    <result column="asset_code" jdbcType="VARCHAR" property="assetCode" />
+    <result column="asset_name" jdbcType="VARCHAR" property="assetName" />
+    <result column="type1" jdbcType="INTEGER" property="type1" />
+    <result column="type2" jdbcType="INTEGER" property="type2" />
+    <result column="type3" jdbcType="INTEGER" property="type3" />
+    <result column="type4" jdbcType="INTEGER" property="type4" />
+    <result column="asset_status" jdbcType="INTEGER" property="assetStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_detail_id" jdbcType="INTEGER" property="projectDetailId" />
+    <result column="outstock_id" jdbcType="INTEGER" property="outstockId" />
+    <result column="outstock_detail_id" jdbcType="INTEGER" property="outstockDetailId" />
+    <result column="firm" jdbcType="VARCHAR" property="firm" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="serial_num" jdbcType="VARCHAR" property="serialNum" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="asset_remark" jdbcType="VARCHAR" property="assetRemark" />
+    <result column="use_entry_id" jdbcType="INTEGER" property="useEntryId" />
+    <result column="use_entry_name" jdbcType="VARCHAR" property="useEntryName" />
+    <result column="use_place_id" jdbcType="VARCHAR" property="usePlaceId" />
+    <result column="use_place_name" jdbcType="VARCHAR" property="usePlaceName" />
+    <result column="price_type" jdbcType="INTEGER" property="priceType" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="invoice_code" jdbcType="VARCHAR" property="invoiceCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    asset_id, asset_code, asset_name, type1, type2, type3, type4, asset_status, create_time, 
+    create_user, modify_time, project_id, project_detail_id, outstock_id, outstock_detail_id, 
+    firm, brand, model, serial_num, supplier, asset_remark, use_entry_id, use_entry_name, 
+    use_place_id, use_place_name, price_type, price, invoice_code
+  </sql>
+  <select id="selectByExample" parameterType="com.fixed.asset.model.AssetExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from asset
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from asset
+    where asset_id = #{assetId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from asset
+    where asset_id = #{assetId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fixed.asset.model.AssetExample">
+    delete from asset
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fixed.asset.model.Asset">
+    insert into asset (asset_id, asset_code, asset_name, 
+      type1, type2, type3, 
+      type4, asset_status, create_time, 
+      create_user, modify_time, project_id, 
+      project_detail_id, outstock_id, outstock_detail_id, 
+      firm, brand, model, 
+      serial_num, supplier, asset_remark, 
+      use_entry_id, use_entry_name, use_place_id, 
+      use_place_name, price_type, price, 
+      invoice_code)
+    values (#{assetId,jdbcType=INTEGER}, #{assetCode,jdbcType=VARCHAR}, #{assetName,jdbcType=VARCHAR}, 
+      #{type1,jdbcType=INTEGER}, #{type2,jdbcType=INTEGER}, #{type3,jdbcType=INTEGER}, 
+      #{type4,jdbcType=INTEGER}, #{assetStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{projectId,jdbcType=INTEGER}, 
+      #{projectDetailId,jdbcType=INTEGER}, #{outstockId,jdbcType=INTEGER}, #{outstockDetailId,jdbcType=INTEGER}, 
+      #{firm,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{serialNum,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{assetRemark,jdbcType=VARCHAR}, 
+      #{useEntryId,jdbcType=INTEGER}, #{useEntryName,jdbcType=VARCHAR}, #{usePlaceId,jdbcType=VARCHAR}, 
+      #{usePlaceName,jdbcType=VARCHAR}, #{priceType,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{invoiceCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fixed.asset.model.Asset">
+    insert into asset
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="assetId != null">
+        asset_id,
+      </if>
+      <if test="assetCode != null">
+        asset_code,
+      </if>
+      <if test="assetName != null">
+        asset_name,
+      </if>
+      <if test="type1 != null">
+        type1,
+      </if>
+      <if test="type2 != null">
+        type2,
+      </if>
+      <if test="type3 != null">
+        type3,
+      </if>
+      <if test="type4 != null">
+        type4,
+      </if>
+      <if test="assetStatus != null">
+        asset_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="projectDetailId != null">
+        project_detail_id,
+      </if>
+      <if test="outstockId != null">
+        outstock_id,
+      </if>
+      <if test="outstockDetailId != null">
+        outstock_detail_id,
+      </if>
+      <if test="firm != null">
+        firm,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="serialNum != null">
+        serial_num,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="assetRemark != null">
+        asset_remark,
+      </if>
+      <if test="useEntryId != null">
+        use_entry_id,
+      </if>
+      <if test="useEntryName != null">
+        use_entry_name,
+      </if>
+      <if test="usePlaceId != null">
+        use_place_id,
+      </if>
+      <if test="usePlaceName != null">
+        use_place_name,
+      </if>
+      <if test="priceType != null">
+        price_type,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="invoiceCode != null">
+        invoice_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="assetId != null">
+        #{assetId,jdbcType=INTEGER},
+      </if>
+      <if test="assetCode != null">
+        #{assetCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetName != null">
+        #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="type1 != null">
+        #{type1,jdbcType=INTEGER},
+      </if>
+      <if test="type2 != null">
+        #{type2,jdbcType=INTEGER},
+      </if>
+      <if test="type3 != null">
+        #{type3,jdbcType=INTEGER},
+      </if>
+      <if test="type4 != null">
+        #{type4,jdbcType=INTEGER},
+      </if>
+      <if test="assetStatus != null">
+        #{assetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectDetailId != null">
+        #{projectDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="outstockId != null">
+        #{outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="outstockDetailId != null">
+        #{outstockDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="firm != null">
+        #{firm,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null">
+        #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="assetRemark != null">
+        #{assetRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="useEntryId != null">
+        #{useEntryId,jdbcType=INTEGER},
+      </if>
+      <if test="useEntryName != null">
+        #{useEntryName,jdbcType=VARCHAR},
+      </if>
+      <if test="usePlaceId != null">
+        #{usePlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="usePlaceName != null">
+        #{usePlaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null">
+        #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceCode != null">
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fixed.asset.model.AssetExample" resultType="java.lang.Long">
+    select count(*) from asset
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update asset
+    <set>
+      <if test="record.assetId != null">
+        asset_id = #{record.assetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetCode != null">
+        asset_code = #{record.assetCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetName != null">
+        asset_name = #{record.assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type1 != null">
+        type1 = #{record.type1,jdbcType=INTEGER},
+      </if>
+      <if test="record.type2 != null">
+        type2 = #{record.type2,jdbcType=INTEGER},
+      </if>
+      <if test="record.type3 != null">
+        type3 = #{record.type3,jdbcType=INTEGER},
+      </if>
+      <if test="record.type4 != null">
+        type4 = #{record.type4,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetStatus != null">
+        asset_status = #{record.assetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectDetailId != null">
+        project_detail_id = #{record.projectDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.outstockId != null">
+        outstock_id = #{record.outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.outstockDetailId != null">
+        outstock_detail_id = #{record.outstockDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.firm != null">
+        firm = #{record.firm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null">
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialNum != null">
+        serial_num = #{record.serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetRemark != null">
+        asset_remark = #{record.assetRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useEntryId != null">
+        use_entry_id = #{record.useEntryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.useEntryName != null">
+        use_entry_name = #{record.useEntryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usePlaceId != null">
+        use_place_id = #{record.usePlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usePlaceName != null">
+        use_place_name = #{record.usePlaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceType != null">
+        price_type = #{record.priceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.invoiceCode != null">
+        invoice_code = #{record.invoiceCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update asset
+    set asset_id = #{record.assetId,jdbcType=INTEGER},
+      asset_code = #{record.assetCode,jdbcType=VARCHAR},
+      asset_name = #{record.assetName,jdbcType=VARCHAR},
+      type1 = #{record.type1,jdbcType=INTEGER},
+      type2 = #{record.type2,jdbcType=INTEGER},
+      type3 = #{record.type3,jdbcType=INTEGER},
+      type4 = #{record.type4,jdbcType=INTEGER},
+      asset_status = #{record.assetStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      project_detail_id = #{record.projectDetailId,jdbcType=INTEGER},
+      outstock_id = #{record.outstockId,jdbcType=INTEGER},
+      outstock_detail_id = #{record.outstockDetailId,jdbcType=INTEGER},
+      firm = #{record.firm,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      serial_num = #{record.serialNum,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      asset_remark = #{record.assetRemark,jdbcType=VARCHAR},
+      use_entry_id = #{record.useEntryId,jdbcType=INTEGER},
+      use_entry_name = #{record.useEntryName,jdbcType=VARCHAR},
+      use_place_id = #{record.usePlaceId,jdbcType=VARCHAR},
+      use_place_name = #{record.usePlaceName,jdbcType=VARCHAR},
+      price_type = #{record.priceType,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      invoice_code = #{record.invoiceCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fixed.asset.model.Asset">
+    update asset
+    <set>
+      <if test="assetCode != null">
+        asset_code = #{assetCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetName != null">
+        asset_name = #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="type1 != null">
+        type1 = #{type1,jdbcType=INTEGER},
+      </if>
+      <if test="type2 != null">
+        type2 = #{type2,jdbcType=INTEGER},
+      </if>
+      <if test="type3 != null">
+        type3 = #{type3,jdbcType=INTEGER},
+      </if>
+      <if test="type4 != null">
+        type4 = #{type4,jdbcType=INTEGER},
+      </if>
+      <if test="assetStatus != null">
+        asset_status = #{assetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectDetailId != null">
+        project_detail_id = #{projectDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="outstockId != null">
+        outstock_id = #{outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="outstockDetailId != null">
+        outstock_detail_id = #{outstockDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="firm != null">
+        firm = #{firm,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null">
+        serial_num = #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="assetRemark != null">
+        asset_remark = #{assetRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="useEntryId != null">
+        use_entry_id = #{useEntryId,jdbcType=INTEGER},
+      </if>
+      <if test="useEntryName != null">
+        use_entry_name = #{useEntryName,jdbcType=VARCHAR},
+      </if>
+      <if test="usePlaceId != null">
+        use_place_id = #{usePlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="usePlaceName != null">
+        use_place_name = #{usePlaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null">
+        price_type = #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceCode != null">
+        invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where asset_id = #{assetId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fixed.asset.model.Asset">
+    update asset
+    set asset_code = #{assetCode,jdbcType=VARCHAR},
+      asset_name = #{assetName,jdbcType=VARCHAR},
+      type1 = #{type1,jdbcType=INTEGER},
+      type2 = #{type2,jdbcType=INTEGER},
+      type3 = #{type3,jdbcType=INTEGER},
+      type4 = #{type4,jdbcType=INTEGER},
+      asset_status = #{assetStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_detail_id = #{projectDetailId,jdbcType=INTEGER},
+      outstock_id = #{outstockId,jdbcType=INTEGER},
+      outstock_detail_id = #{outstockDetailId,jdbcType=INTEGER},
+      firm = #{firm,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      serial_num = #{serialNum,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      asset_remark = #{assetRemark,jdbcType=VARCHAR},
+      use_entry_id = #{useEntryId,jdbcType=INTEGER},
+      use_entry_name = #{useEntryName,jdbcType=VARCHAR},
+      use_place_id = #{usePlaceId,jdbcType=VARCHAR},
+      use_place_name = #{usePlaceName,jdbcType=VARCHAR},
+      price_type = #{priceType,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      invoice_code = #{invoiceCode,jdbcType=VARCHAR}
+    where asset_id = #{assetId,jdbcType=INTEGER}
+  </update>
+</mapper>

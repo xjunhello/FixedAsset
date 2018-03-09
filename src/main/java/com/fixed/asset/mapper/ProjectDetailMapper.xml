@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fixed.asset.mapper.ProjectDetailMapper">
+  <resultMap id="BaseResultMap" type="com.fixed.asset.model.ProjectDetail">
+    <id column="detail_id" jdbcType="INTEGER" property="detailId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="detail_code" jdbcType="VARCHAR" property="detailCode" />
+    <result column="detail_name" jdbcType="VARCHAR" property="detailName" />
+    <result column="firm" jdbcType="VARCHAR" property="firm" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="detail_number" jdbcType="INTEGER" property="detailNumber" />
+    <result column="detail_size" jdbcType="INTEGER" property="detailSize" />
+    <result column="detail_price" jdbcType="DECIMAL" property="detailPrice" />
+    <result column="detail_price_type" jdbcType="TINYINT" property="detailPriceType" />
+    <result column="is_asset" jdbcType="TINYINT" property="isAsset" />
+    <result column="detail_remark" jdbcType="VARCHAR" property="detailRemark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fixed.asset.model.ProjectDetail">
+    <result column="picture" jdbcType="LONGVARBINARY" property="picture" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    detail_id, project_id, detail_code, detail_name, firm, brand, model, supplier, remark, 
+    create_time, detail_number, detail_size, detail_price, detail_price_type, is_asset, 
+    detail_remark
+  </sql>
+  <sql id="Blob_Column_List">
+    picture
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.fixed.asset.model.ProjectDetailExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.fixed.asset.model.ProjectDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project_detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from project_detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fixed.asset.model.ProjectDetailExample">
+    delete from project_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fixed.asset.model.ProjectDetail">
+    insert into project_detail (detail_id, project_id, detail_code, 
+      detail_name, firm, brand, 
+      model, supplier, remark, 
+      create_time, detail_number, detail_size, 
+      detail_price, detail_price_type, is_asset, 
+      detail_remark, picture)
+    values (#{detailId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{detailCode,jdbcType=VARCHAR}, 
+      #{detailName,jdbcType=VARCHAR}, #{firm,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{detailNumber,jdbcType=INTEGER}, #{detailSize,jdbcType=INTEGER}, 
+      #{detailPrice,jdbcType=DECIMAL}, #{detailPriceType,jdbcType=TINYINT}, #{isAsset,jdbcType=TINYINT}, 
+      #{detailRemark,jdbcType=VARCHAR}, #{picture,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fixed.asset.model.ProjectDetail">
+    insert into project_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        detail_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="detailCode != null">
+        detail_code,
+      </if>
+      <if test="detailName != null">
+        detail_name,
+      </if>
+      <if test="firm != null">
+        firm,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="detailNumber != null">
+        detail_number,
+      </if>
+      <if test="detailSize != null">
+        detail_size,
+      </if>
+      <if test="detailPrice != null">
+        detail_price,
+      </if>
+      <if test="detailPriceType != null">
+        detail_price_type,
+      </if>
+      <if test="isAsset != null">
+        is_asset,
+      </if>
+      <if test="detailRemark != null">
+        detail_remark,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="detailCode != null">
+        #{detailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detailName != null">
+        #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="firm != null">
+        #{firm,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detailNumber != null">
+        #{detailNumber,jdbcType=INTEGER},
+      </if>
+      <if test="detailSize != null">
+        #{detailSize,jdbcType=INTEGER},
+      </if>
+      <if test="detailPrice != null">
+        #{detailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="detailPriceType != null">
+        #{detailPriceType,jdbcType=TINYINT},
+      </if>
+      <if test="isAsset != null">
+        #{isAsset,jdbcType=TINYINT},
+      </if>
+      <if test="detailRemark != null">
+        #{detailRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fixed.asset.model.ProjectDetailExample" resultType="java.lang.Long">
+    select count(*) from project_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update project_detail
+    <set>
+      <if test="record.detailId != null">
+        detail_id = #{record.detailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailCode != null">
+        detail_code = #{record.detailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailName != null">
+        detail_name = #{record.detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firm != null">
+        firm = #{record.firm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null">
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.detailNumber != null">
+        detail_number = #{record.detailNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailSize != null">
+        detail_size = #{record.detailSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailPrice != null">
+        detail_price = #{record.detailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.detailPriceType != null">
+        detail_price_type = #{record.detailPriceType,jdbcType=TINYINT},
+      </if>
+      <if test="record.isAsset != null">
+        is_asset = #{record.isAsset,jdbcType=TINYINT},
+      </if>
+      <if test="record.detailRemark != null">
+        detail_remark = #{record.detailRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update project_detail
+    set detail_id = #{record.detailId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      detail_code = #{record.detailCode,jdbcType=VARCHAR},
+      detail_name = #{record.detailName,jdbcType=VARCHAR},
+      firm = #{record.firm,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      detail_number = #{record.detailNumber,jdbcType=INTEGER},
+      detail_size = #{record.detailSize,jdbcType=INTEGER},
+      detail_price = #{record.detailPrice,jdbcType=DECIMAL},
+      detail_price_type = #{record.detailPriceType,jdbcType=TINYINT},
+      is_asset = #{record.isAsset,jdbcType=TINYINT},
+      detail_remark = #{record.detailRemark,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update project_detail
+    set detail_id = #{record.detailId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      detail_code = #{record.detailCode,jdbcType=VARCHAR},
+      detail_name = #{record.detailName,jdbcType=VARCHAR},
+      firm = #{record.firm,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      detail_number = #{record.detailNumber,jdbcType=INTEGER},
+      detail_size = #{record.detailSize,jdbcType=INTEGER},
+      detail_price = #{record.detailPrice,jdbcType=DECIMAL},
+      detail_price_type = #{record.detailPriceType,jdbcType=TINYINT},
+      is_asset = #{record.isAsset,jdbcType=TINYINT},
+      detail_remark = #{record.detailRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fixed.asset.model.ProjectDetail">
+    update project_detail
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="detailCode != null">
+        detail_code = #{detailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detailName != null">
+        detail_name = #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="firm != null">
+        firm = #{firm,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detailNumber != null">
+        detail_number = #{detailNumber,jdbcType=INTEGER},
+      </if>
+      <if test="detailSize != null">
+        detail_size = #{detailSize,jdbcType=INTEGER},
+      </if>
+      <if test="detailPrice != null">
+        detail_price = #{detailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="detailPriceType != null">
+        detail_price_type = #{detailPriceType,jdbcType=TINYINT},
+      </if>
+      <if test="isAsset != null">
+        is_asset = #{isAsset,jdbcType=TINYINT},
+      </if>
+      <if test="detailRemark != null">
+        detail_remark = #{detailRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fixed.asset.model.ProjectDetail">
+    update project_detail
+    set project_id = #{projectId,jdbcType=INTEGER},
+      detail_code = #{detailCode,jdbcType=VARCHAR},
+      detail_name = #{detailName,jdbcType=VARCHAR},
+      firm = #{firm,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      detail_number = #{detailNumber,jdbcType=INTEGER},
+      detail_size = #{detailSize,jdbcType=INTEGER},
+      detail_price = #{detailPrice,jdbcType=DECIMAL},
+      detail_price_type = #{detailPriceType,jdbcType=TINYINT},
+      is_asset = #{isAsset,jdbcType=TINYINT},
+      detail_remark = #{detailRemark,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=LONGVARBINARY}
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fixed.asset.model.ProjectDetail">
+    update project_detail
+    set project_id = #{projectId,jdbcType=INTEGER},
+      detail_code = #{detailCode,jdbcType=VARCHAR},
+      detail_name = #{detailName,jdbcType=VARCHAR},
+      firm = #{firm,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      detail_number = #{detailNumber,jdbcType=INTEGER},
+      detail_size = #{detailSize,jdbcType=INTEGER},
+      detail_price = #{detailPrice,jdbcType=DECIMAL},
+      detail_price_type = #{detailPriceType,jdbcType=TINYINT},
+      is_asset = #{isAsset,jdbcType=TINYINT},
+      detail_remark = #{detailRemark,jdbcType=VARCHAR}
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+</mapper>

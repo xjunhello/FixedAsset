@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fixed.asset.mapper.OutstockMapper">
+  <resultMap id="BaseResultMap" type="com.fixed.asset.model.Outstock">
+    <id column="outstock_id" jdbcType="INTEGER" property="outstockId" />
+    <result column="outstock_name" jdbcType="VARCHAR" property="outstockName" />
+    <result column="outstock_code" jdbcType="VARCHAR" property="outstockCode" />
+    <result column="outstock_status" jdbcType="INTEGER" property="outstockStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="apply_user_id" jdbcType="INTEGER" property="applyUserId" />
+    <result column="approval_user_id" jdbcType="INTEGER" property="approvalUserId" />
+    <result column="approval_time" jdbcType="TIMESTAMP" property="approvalTime" />
+    <result column="outstock_remark" jdbcType="VARCHAR" property="outstockRemark" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fixed.asset.model.Outstock">
+    <result column="picture" jdbcType="LONGVARBINARY" property="picture" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    outstock_id, outstock_name, outstock_code, outstock_status, create_time, apply_user_id, 
+    approval_user_id, approval_time, outstock_remark, last_modify_time
+  </sql>
+  <sql id="Blob_Column_List">
+    picture
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.fixed.asset.model.OutstockExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from outstock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.fixed.asset.model.OutstockExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outstock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from outstock
+    where outstock_id = #{outstockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from outstock
+    where outstock_id = #{outstockId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fixed.asset.model.OutstockExample">
+    delete from outstock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fixed.asset.model.Outstock">
+    insert into outstock (outstock_id, outstock_name, outstock_code, 
+      outstock_status, create_time, apply_user_id, 
+      approval_user_id, approval_time, outstock_remark, 
+      last_modify_time, picture)
+    values (#{outstockId,jdbcType=INTEGER}, #{outstockName,jdbcType=VARCHAR}, #{outstockCode,jdbcType=VARCHAR}, 
+      #{outstockStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{applyUserId,jdbcType=INTEGER}, 
+      #{approvalUserId,jdbcType=INTEGER}, #{approvalTime,jdbcType=TIMESTAMP}, #{outstockRemark,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{picture,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fixed.asset.model.Outstock">
+    insert into outstock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="outstockId != null">
+        outstock_id,
+      </if>
+      <if test="outstockName != null">
+        outstock_name,
+      </if>
+      <if test="outstockCode != null">
+        outstock_code,
+      </if>
+      <if test="outstockStatus != null">
+        outstock_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="applyUserId != null">
+        apply_user_id,
+      </if>
+      <if test="approvalUserId != null">
+        approval_user_id,
+      </if>
+      <if test="approvalTime != null">
+        approval_time,
+      </if>
+      <if test="outstockRemark != null">
+        outstock_remark,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="outstockId != null">
+        #{outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="outstockName != null">
+        #{outstockName,jdbcType=VARCHAR},
+      </if>
+      <if test="outstockCode != null">
+        #{outstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outstockStatus != null">
+        #{outstockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUserId != null">
+        #{applyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="approvalUserId != null">
+        #{approvalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="approvalTime != null">
+        #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outstockRemark != null">
+        #{outstockRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fixed.asset.model.OutstockExample" resultType="java.lang.Long">
+    select count(*) from outstock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update outstock
+    <set>
+      <if test="record.outstockId != null">
+        outstock_id = #{record.outstockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.outstockName != null">
+        outstock_name = #{record.outstockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outstockCode != null">
+        outstock_code = #{record.outstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outstockStatus != null">
+        outstock_status = #{record.outstockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applyUserId != null">
+        apply_user_id = #{record.applyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalUserId != null">
+        approval_user_id = #{record.approvalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalTime != null">
+        approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.outstockRemark != null">
+        outstock_remark = #{record.outstockRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifyTime != null">
+        last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update outstock
+    set outstock_id = #{record.outstockId,jdbcType=INTEGER},
+      outstock_name = #{record.outstockName,jdbcType=VARCHAR},
+      outstock_code = #{record.outstockCode,jdbcType=VARCHAR},
+      outstock_status = #{record.outstockStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      apply_user_id = #{record.applyUserId,jdbcType=INTEGER},
+      approval_user_id = #{record.approvalUserId,jdbcType=INTEGER},
+      approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      outstock_remark = #{record.outstockRemark,jdbcType=VARCHAR},
+      last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      picture = #{record.picture,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update outstock
+    set outstock_id = #{record.outstockId,jdbcType=INTEGER},
+      outstock_name = #{record.outstockName,jdbcType=VARCHAR},
+      outstock_code = #{record.outstockCode,jdbcType=VARCHAR},
+      outstock_status = #{record.outstockStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      apply_user_id = #{record.applyUserId,jdbcType=INTEGER},
+      approval_user_id = #{record.approvalUserId,jdbcType=INTEGER},
+      approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      outstock_remark = #{record.outstockRemark,jdbcType=VARCHAR},
+      last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fixed.asset.model.Outstock">
+    update outstock
+    <set>
+      <if test="outstockName != null">
+        outstock_name = #{outstockName,jdbcType=VARCHAR},
+      </if>
+      <if test="outstockCode != null">
+        outstock_code = #{outstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outstockStatus != null">
+        outstock_status = #{outstockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUserId != null">
+        apply_user_id = #{applyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="approvalUserId != null">
+        approval_user_id = #{approvalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="approvalTime != null">
+        approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outstockRemark != null">
+        outstock_remark = #{outstockRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where outstock_id = #{outstockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fixed.asset.model.Outstock">
+    update outstock
+    set outstock_name = #{outstockName,jdbcType=VARCHAR},
+      outstock_code = #{outstockCode,jdbcType=VARCHAR},
+      outstock_status = #{outstockStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user_id = #{applyUserId,jdbcType=INTEGER},
+      approval_user_id = #{approvalUserId,jdbcType=INTEGER},
+      approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      outstock_remark = #{outstockRemark,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      picture = #{picture,jdbcType=LONGVARBINARY}
+    where outstock_id = #{outstockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fixed.asset.model.Outstock">
+    update outstock
+    set outstock_name = #{outstockName,jdbcType=VARCHAR},
+      outstock_code = #{outstockCode,jdbcType=VARCHAR},
+      outstock_status = #{outstockStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user_id = #{applyUserId,jdbcType=INTEGER},
+      approval_user_id = #{approvalUserId,jdbcType=INTEGER},
+      approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      outstock_remark = #{outstockRemark,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where outstock_id = #{outstockId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -45,44 +45,44 @@ public class FixedAssetApplicationTests {
 				System.out.println("测试未通过！");
 			}
 	}	
-	
-	@Test
-	public void getRolesByUserName() {
-		UserExample um = new UserExample();
-		um.createCriteria().andUserNameEqualTo("admin");
-		List<User> ulist = userMapper.selectByExample(um);
-		if(ulist==null || ulist.size()<=0)
-			return ;
-		User u;
-		u = ulist.get(0);
-		UserRoleExample ure = new UserRoleExample();
-		ure.createCriteria().andUserIdEqualTo(u.getUserId());
-		List<UserRole> urlist = userRoleMapper.selectByExample(ure);
-		if(urlist == null || urlist.size()<=0)
-			return;
-		List<Integer> rids = new ArrayList<Integer>();
-		for(UserRole ur : urlist) {
-			rids.add(ur.getRoleId());
-		}
-		RoleExample re = new RoleExample();
-		re.createCriteria().andRoleIdIn(rids);
-		List<Role> rlist = roleMapper.selectByExample(re);
-		if(rlist!=null || rlist.size()>0) {
-			for(Role r: rlist) {
-				System.out.println("role=="+r.getRoleId()+":::"+r.getRoleName());
-			}
-		}
-		
-	}
-	
-	@Test
-	public void testUserAndRole(){
-		UserExample ue = new UserExample();
-		ue.createCriteria().andUserNameEqualTo("admin");
-		List<User> u = userMapper.selectUserAndRolesByExample(ue);
-		List<Role> rlist = u.get(0).getRoles();
-		if(rlist != null )
-			System.out.println(rlist.size()+"---"+rlist.get(0).getRoleName());
-	}
+//	
+//	@Test
+//	public void getRolesByUserName() {
+//		UserExample um = new UserExample();
+//		um.createCriteria().andUserNameEqualTo("admin");
+//		List<User> ulist = userMapper.selectByExample(um);
+//		if(ulist==null || ulist.size()<=0)
+//			return ;
+//		User u;
+//		u = ulist.get(0);
+//		UserRoleExample ure = new UserRoleExample();
+//		ure.createCriteria().andUserIdEqualTo(u.getUserId());
+//		List<UserRole> urlist = userRoleMapper.selectByExample(ure);
+//		if(urlist == null || urlist.size()<=0)
+//			return;
+//		List<Integer> rids = new ArrayList<Integer>();
+//		for(UserRole ur : urlist) {
+//			rids.add(ur.getRoleId());
+//		}
+//		RoleExample re = new RoleExample();
+//		re.createCriteria().andRoleIdIn(rids);
+//		List<Role> rlist = roleMapper.selectByExample(re);
+//		if(rlist!=null || rlist.size()>0) {
+//			for(Role r: rlist) {
+//				System.out.println("role=="+r.getRoleId()+":::"+r.getRoleName());
+//			}
+//		}
+//		
+//	}
+//	
+//	@Test
+//	public void testUserAndRole(){
+//		UserExample ue = new UserExample();
+//		ue.createCriteria().andUserNameEqualTo("admin");
+//		List<User> u = userMapper.selectUserAndRolesByExample(ue);
+//		List<Role> rlist = u.get(0).getRoles();
+//		if(rlist != null )
+//			System.out.println(rlist.size()+"---"+rlist.get(0).getRoleName());
+//	}
 
 }

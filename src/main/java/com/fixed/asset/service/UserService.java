@@ -20,6 +20,7 @@ public class UserService {
     
 	private UserMapper userMapper;
     
+	
 	@Autowired
     private UserRoleMapper userRoleMapper;
     
@@ -32,6 +33,10 @@ public class UserService {
         userMapper.insert(user);
         return findById(user.getUserId());
     }
+    
+    public List<User> selectByExample(UserExample example) throws DataAccessException{
+		return userMapper.selectByExample(example);
+	}
     
     public User add(User user,String [] roleIds) throws DataAccessException{
          userMapper.insert(user);

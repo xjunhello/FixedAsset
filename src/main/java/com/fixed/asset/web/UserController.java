@@ -1,5 +1,8 @@
 package com.fixed.asset.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fixed.asset.model.Msg;
 import com.fixed.asset.model.MsgStat;
 import com.fixed.asset.model.User;
+import com.fixed.asset.model.UserExample;
 import com.fixed.asset.service.RoleService;
 import com.fixed.asset.service.UserService;
 
@@ -25,8 +29,17 @@ public class UserController {
 		RoleService roleSevice;
 		
 		@RequestMapping("/get")
-	    public String get(Model model){
-			
+	    public String get(Model model,String keywords){
+			System.out.println("搜索关键词："+keywords);
+			UserExample example = new UserExample();
+			if(null!=keywords&&!"".equals(keywords)) {
+				example.or().andUserNameLike(keywords);
+			}
+			List<User> ulist = userService.selectByExample(example);
+			if(null==ulist || ulist.size()<=0)
+				ulist = new ArrayList<User>();
+			model.addAttribute("users", ulist);
+			model.addAttribute("keywords", keywords);
 	        return "user_list";
 	    }
 	 	

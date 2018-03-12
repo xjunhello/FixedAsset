@@ -5,16 +5,9 @@
 <meta content="text/html;charset=UTF-8"/>
 <title sec:authentication="name"></title>
 </head>
-<body class="hold-transition skin-blue sidebar-mini" style="font-size: 11">
+<body >
 <div class="wrapper">
-<header th:replace="/common/template :: header(1)"></header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar" th:replace="/common/template :: menu('2','1')"></aside>
-  
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-  <section class="content-header" th:replace="/common/template :: breadcrumb('2')"></section>
-  <section class="content">
+	<section style="height: 100%;width: 100%">
   	<!-- form start -->
   		  <div class="row">
         <!-- left column -->
@@ -26,39 +19,68 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal">
+            <form class="form-horizontal" th:object="${user}" id="form1" th:method="post" th:action="@{/user/add}">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="userName" class="col-sm-2 control-label">姓名</label>
+                  <label for="userName" class="col-xs-2 control-label">用户名</label>
 
-                  <div class="col-sm-10 col-md-4">
-                    <input type="text" class="form-control" id="userName" name="userName" >
+                  <div class="col-xs-10 col-sm-4">
+                    <input type="text" class="form-control" id="userName" name="userName" th:value="*{userName}">
                   </div>
-                  <label for="password" class="col-sm-2 control-label">密码</label>
+                  <label for="fullName" class="col-xs-2 control-label">昵称</label>
 
-                  <div class="col-sm-10 col-md-4">
-                    <input type="password" class="form-control" id="inputEmail3" placeholder="Email">
+                  <div class="col-xs-10 col-sm-4">
+                    <input type="text" class="form-control" id="fullname" name="fullname" th:value="*{fullname}">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="roles" class="col-sm-2 control-label">角色</label>
+                  <label for="email" class="col-xs-2 control-label">邮箱地址</label>
 
-                  <div class="col-sm-10 col-md-4">
-                    <select class="form-control select2" multiple="multiple" data-placeholder="请选择"
-                        style="width: 100%;">
-	                  <option>系统管理员</option>
-	                  <option>管理员</option>
-	                  <option>入库管理员</option>
-	                  <option>分配员</option>
+                  <div class="col-xs-10 col-sm-4">
+                    <input type="text" class="form-control" id="email" name="email" th:value="*{email}">
+                  </div>
+                  <label for="password" class="col-xs-2 control-label">密码</label>
+
+                  <div class="col-xs-10 col-sm-4">
+                    <input type="text" class="form-control" id="password" name="password" th:value="*{password}" placeholder="默认密码:123456">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="userName" class="col-xs-2 control-label">用户名</label>
+
+                  <div class="col-xs-10 col-sm-4">
+                    <input type="text" class="form-control" id="userName" name="userName" th:value="*{userName}">
+                  </div>
+                  <label for="password" class="col-xs-2 control-label">密码</label>
+
+                  <div class="col-xs-10 col-sm-4">
+                    <input type="text" class="form-control" id="password" name="password" th:value="*{password}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="roles" class="col-xs-2 control-label">角色</label>
+
+                  <div class="col-xs-10 col-sm-4">
+                    <select class="form-control select2" 
+                    multiple="multiple" data-placeholder="请选择" id="roleIds" name="roleIds" 
+                    th:remove="all-but-first" 
+                        style="width: 100%;">                      
+	                  <option th:each="role : ${roles}" th:value="${role.roleId}" th:text="${role.remark}" value="1">系统管理员</option>
 	                </select>
+                  </div>
+                  
+                  <label for="password" class="col-xs-2 control-label">状态</label>
+
+                  <div class="col-xs-10 col-sm-4 ">
+                   	<input type="checkbox"> 冻结
                   </div>
                 </div>
                 
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="cancel" class="btn btn-default">重置</button>
-                <button type="submit" class="btn btn-info pull-right">取消</button>
+                <button type="reset" class="btn btn-default">重置</button>
+                <button type="submit" id="subBtn" class="btn btn-info pull-right">提交</button>
               </div>
               <!-- /.box-footer -->
             </form>
@@ -66,103 +88,54 @@
           <!-- /.box -->
         </div>
   	<!-- form end -->
-  </section>		
-  </div>  
-  <!-- /.content-wrapper -->
-  <footer class="main-footer" th:replace="/common/template :: footer">
-  </footer>
-
- 
- 
-</div>
+  	</div>
+  </section>
+  </div>
 <!-- ./wrapper -->
 
 <span th:replace="/common/common_js"></span>
 <!-- page script -->
 <script>
   $(function () {
-    $('#example2').DataTable({
-        "language": {
-            "url": "ALTE/bower_components/datatables.net/datatable.zh_CN.lang"
-        }
-    })
+	  $('.select2').select2();
+	  $('#form1').validator({
+		  	rule:{
+		  		
+		  	},
+		    fields: {
+		        'userName': 'required;length(1~10)',
+		        'fullname':'length(1~50)',
+		        'email':'email,length(1~50)',
+		        'password': 'required;length(6~16)',
+		        'roleIds':'required;'
+		    },
+		    valid: function(form) {
+		   		var formData = new FormData($('#form1')[0]);
+		   		$.ajax({
+		   	        timeout : 20000,
+		   	        type : "post",
+		   	     	processData: false, 
+		   	  		contentType : false,
+		   	        dataType : "json",
+		   	        url : "/user/add",
+		   	        data : formData,
+		   	        success : function(data){
+		   	        	console.log(data);
+		   	            alert(data);
+		   	        },
+		   	        error : function(data){
+		   	        	console.log(data);
+		   	        	alert("错误！"+data);
+		   	        }
+		   	    });
+		    }
+		});
+	  
+
   })
-  /*{
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    }*/
+
 </script>
 
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
 
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-    })
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
-</script>
 </body>
 </html>

@@ -21,7 +21,7 @@
 		   		 <div class="box box-info">
 		            <div class="box-header">
 		              	<div class="pull-left">
-                    		<a class="btn-primary btn-xs " th:href="@{/user/add}">新增</a>
+                    		<button id="addUserBtn" type="button" class="btn btn-info btn-xs pull-right">新增用户</button>
                   		</div>
 		              	<div class="pull-left">
                     		
@@ -213,24 +213,39 @@
 </div>
 <!-- ./wrapper -->
 
-<span th:replace="/common/common_js"></span>
+<span th:replace="/common/common_js :: common"></span>
+<span th:replace="/common/common_js :: layer"></span>
 <!-- page script -->
 <script>
+
+function openWindow(url){
+	layer.open({
+	      type: 2,
+	      title: '新增用户',
+	      shadeClose: true,
+	      shade: false,
+	      maxmin: true, //开启最大化最小化按钮
+	      area: ['800px','400px'],
+	      content: url
+	});
+}
+
   $(function () {
     $('#example2').DataTable({
         "language": {
-            "url": "ALTE/bower_components/datatables.net/datatable.zh_CN.lang"
+            "url": "/ALTE/bower_components/datatables.net/datatable.zh_CN.lang"
         }
     })
+    
+    //绑定新增按钮操作
+    $('#addUserBtn').click(function(){
+    
+    	openWindow("/user/add");
+    })
+    
   })
-  /*{
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    }*/
+    
+
 </script>
 </body>
 </html>

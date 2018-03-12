@@ -4,28 +4,30 @@ import com.fixed.asset.model.User;
 import com.fixed.asset.model.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DataAccessException;
 
 public interface UserMapper {
-    long countByExample(UserExample example);
+    long countByExample(UserExample example) throws DataAccessException;
 
-    int deleteByExample(UserExample example);
+    int deleteByExample(UserExample example) throws DataAccessException;
 
-    int deleteByPrimaryKey(Integer userId);
+    int deleteByPrimaryKey(Integer userId) throws DataAccessException;
 
-    int insert(User record);
+    int insert(User record) throws DataAccessException;
 
-    int insertSelective(User record);
+    int insertSelective(User record) throws DataAccessException;
 
-    List<User> selectByExample(UserExample example);
-    List<User> selectUserAndRolesByExample(UserExample example);
-    
-    User selectByPrimaryKey(Integer userId);
+    List<User> selectByExample(UserExample example) throws DataAccessException;
 
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+    User selectByPrimaryKey(Integer userId) throws DataAccessException;
 
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example) throws DataAccessException;
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByExample(@Param("record") User record, @Param("example") UserExample example) throws DataAccessException;
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKeySelective(User record) throws DataAccessException;
+
+    int updateByPrimaryKey(User record) throws DataAccessException;
+
+	List<User> selectUserAndRolesByExample(UserExample um) throws DataAccessException;
 }

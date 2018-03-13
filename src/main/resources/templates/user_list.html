@@ -70,113 +70,17 @@
 		                </tr>
 		                </thead>
 		                <tbody>
-		                <tr th:each="user : ${users}" >
-		                  <td th:text="*{userName}">2018-01-01</td>
-		                  <td th:text="*{fullname}">王主任
+		                <tr th:each="user : ${users}"  >
+		                  <td th:text="${user.userName}">2018-01-01</td>
+		                  <td th:text="${user.fullname}">王主任
 		                  </td >
-		                  <td th:text="*{status}">50.0万</td>
+		                  <td th:text="${user.status == '0'} ? '正常' : '冻结'">50.0万</td>
 		                  <td>待审批</td>
 		                  <td>
 		                  	
-		                  	<button type="button" class="btn  btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                 <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>50.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>50.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>40.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>50.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>50.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>50.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>50.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
-		                  </td>
-		                </tr>
-		                <tr>
-		                  <td>2018-01-01</td>
-		                  <td>王主任
-		                  </td>
-		                  <td>50.0万</td>
-		                  <td>待审批</td>
-		                  <td>
-		                  	<button type="button" class="btn btn-success btn-xs">通过</button>
-		                  	<button type="button" class="btn  btn-danger btn-xs">驳回</button>
-		                  	<button type="button" class="btn  btn-info btn-xs">查看</button>
+		                  	<button th:value="${user.userId}" type="button" class="btn  btn-success btn-xs fix-update">编辑</button>
+		                  	<button th:value="${user.userId}" th:if="${user.status == '0'}" type="button" class="btn  btn-danger btn-xs fix-coll">冻结</button>
+		                  	<button th:value="${user.userId}" type="button" class="btn  btn-info btn-xs fix-detail">查看</button>
 		                  </td>
 		                </tr>
 		              </table>
@@ -204,18 +108,6 @@
 <!-- page script -->
 <script>
 
-function openWindow(url){
-	layer.open({
-	      type: 2,
-	      title: '新增用户',
-	      shadeClose: true,
-	      shade: false,
-	      maxmin: true, //开启最大化最小化按钮
-	      area: ['800px','400px'],
-	      content: url
-	});
-}
-
   $(function () {
     $('#example2').DataTable({
         "language": {
@@ -225,10 +117,20 @@ function openWindow(url){
     
     //绑定新增按钮操作
     $('#addUserBtn').click(function(){
-    
-    	openWindow("/user/add");
+    	openWindow("/user/modify");
+    });
+    //绑定编辑按钮
+    $(".fix-update").click(function(){
+    	openWindow("/user/modify/"+$(this).attr("value"));
+    });
+    //查看按钮
+    $(".fix-detail").click(function(){
+    	openWindow("/user/detail/"+$(this).attr("value"));
+    });
+    //冻结按钮
+    $(".fix-stop").click(function(){
+    	openWindow("/user/stop/"+$(this).attr("value"));
     })
-    
   })
     
 

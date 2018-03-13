@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.fixed.asset.common.Constants;
 import com.fixed.asset.mapper.UserMapper;
 import com.fixed.asset.model.Role;
 import com.fixed.asset.model.User;
@@ -25,7 +26,8 @@ public class CustomUserDetailService implements UserDetailsService {
 		User temp = new User();
 		temp.setUserName(username);
 		UserExample example = new UserExample();
-		example.createCriteria().andUserNameEqualTo(username.trim());
+		example.createCriteria().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE)
+			.andUserNameEqualTo(username.trim());
 		List<User> us = userMapper.selectUserAndRolesByExample(example);
 		if (us == null || us.size()<=0) {
 			throw new UsernameNotFoundException("用户名不存在");
@@ -35,10 +37,13 @@ public class CustomUserDetailService implements UserDetailsService {
 		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		// 用于添加用户的权限。只要把用户权限添加到authorities 就万事大吉。
-		for (Role role : us.get(0).getRoles()) {
+//		for (Role role : us.get(0).getRoles()) {
+//			
+//		}
+		us.get(0).getRoles().forEach(role -> {
 			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 			System.out.println(role.getRoleName());
-		}
+		});
 		return new org.springframework.security.core.userdetails.User(us.get(0).getUserName(), us.get(0).getPassword(), authorities);
 	}
 }

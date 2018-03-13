@@ -1,5 +1,9 @@
 package com.fixed.asset.web;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +15,7 @@ import com.fixed.asset.model.Msg;
 public class HomeController {
 
     @RequestMapping("/home")
-    public String index(Model model){
+    public String index(Model model,HttpSession session){
         return "home";
     }
     

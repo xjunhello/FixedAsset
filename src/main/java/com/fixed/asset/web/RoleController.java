@@ -24,7 +24,7 @@ import com.fixed.asset.service.UserService;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class RoleController {
 		@Autowired
 		UserRoleService userRoleService;
 		

@@ -19,7 +19,8 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" th:object="${user}" id="form1" th:method="post" th:action="@{/user/add}">
+            <form class="form-horizontal" th:object="${user}" id="form1" th:method="post" th:action="@{/user/save}">
+             <input type="hidden" th:type="hidden" th:value="*{userId}" name="userId" id="userId" />
               <div class="box-body">
                 <div class="form-group">
                   <label for="userName" class="col-xs-2 control-label">用户名</label>
@@ -49,11 +50,16 @@
                    <label for="roles" class="col-xs-2 control-label">角色</label>
 
                   <div class="col-xs-10 col-sm-4">
-                    <select class="form-control select2" 
+                    <!-- <select class="form-control select2" 
                     multiple="multiple" data-placeholder="请选择" id="roleIds" name="roleIds" 
                     th:remove="all-but-first" 
                         style="width: 100%;">                      
-	                  <option th:each="role : ${roles}" th:value="${role.roleId}" th:text="${role.remark}" value="1">系统管理员</option>
+	                  <option th:each="role : ${roles}" th:value="${role.roleId}" th:text="${role.remark}" value="1"
+	                  th:selected="${#lists.contains(userRoles,role)}">系统管理员</option>
+	                </select> -->
+	                <select multiple="multiple"  id="roleIds" name="roleIds" >
+	                	<option th:each="role : ${roles}" th:value="${role.roleId}" th:text="${role.remark}" value="1"
+	                  th:selected="${role.remark == '入库管理员'}">系统管理员</option>
 	                </select>
                   </div>
                   
@@ -105,11 +111,10 @@
 		   	     	processData: false, 
 		   	  		contentType : false,
 		   	        dataType : "json",
-		   	        url : "/user/add",
+		   	        url : "/user/save",
 		   	        data : formData,
 		   	        success : function(data){
-		   	        	console.log(data);
-		   	            alert(data);
+		   	        	successNotify(data.title,)
 		   	        },
 		   	        error : function(data){
 		   	        	console.log(data);

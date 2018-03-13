@@ -15,6 +15,7 @@ function errorNotify(msg){
 }
 
 function openWindow(title,url){
+	alert(title);
 	layer.open({
 	      type: 2,
 	      title: title,

@@ -46,16 +46,16 @@ public class RoleController {
 				example.or().andRoleNameLike(keywords);
 				example.or().andRemarkLike(keywords);
 			}
-			List<Role> list;
+			List<Role> roles;
 			try {
-				list = roleService.selectByExample(example);
-				if(null==list || list.size()<=0)
-					list = new ArrayList<Role>();
+				roles = roleService.selectByExample(example);
+				if(null==roles || roles.size()<=0)
+					roles = new ArrayList<Role>();
 			} catch (Exception e) {
 				logger.error("角色管理，系统异常。",e);
-				list = new ArrayList<Role>();
+				roles = new ArrayList<Role>();
 			}
-			model.addAttribute("roles", list);
+			model.addAttribute("roles", roles);
 			model.addAttribute("keywords", keywords);
 	        return "role_list";
 	    }

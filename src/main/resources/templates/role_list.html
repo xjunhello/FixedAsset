@@ -68,10 +68,10 @@
 		                </thead>
 		                <tbody>
 		                <tr th:each="role : ${roles}"  >
-		                  <td th:text="${user.roleName}">2018-01-01</td>
+		                  <td th:text="${role.roleName}">2018-01-01</td>
 		                  <td>
-		                  	<button th:value="${user.userId}" type="button" class="btn  btn-success btn-xs fix-update">编辑</button>
-		                  	<button th:value="${user.userId}" type="button" class="btn  btn-danger btn-xs fix-delete">删除</button>
+		                  	<button th:value="${role.roleId}" type="button" class="btn  btn-success btn-xs fix-update">编辑</button>
+		                  	<button th:value="${role.roleId}" type="button" class="btn  btn-danger btn-xs fix-delete">删除</button>
 		                  </td>
 		                </tr>
 		              </table>

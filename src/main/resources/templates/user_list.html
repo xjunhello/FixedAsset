@@ -81,6 +81,7 @@
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-success btn-xs fix-update">编辑</button>
 		                  	<button th:value="${user.userId}" th:if="${user.status == '0'}" type="button" class="btn  btn-danger btn-xs fix-coll">冻结</button>
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-info btn-xs fix-detail">查看</button>
+		                  	<button th:value="${user.userId}" type="button" class="btn  btn-danger btn-xs fix-delete">删除</button>
 		                  </td>
 		                </tr>
 		              </table>
@@ -117,7 +118,7 @@
     
     //绑定新增按钮操作
     $('#addUserBtn').click(function(){
-    	openWindow("/user/modify");
+    	openWindow("新增用户","/user/modify");
     });
     //绑定编辑按钮
     $(".fix-update").click(function(){
@@ -129,8 +130,64 @@
     });
     //冻结按钮
     $(".fix-stop").click(function(){
-    	openWindow("/user/stop/"+$(this).attr("value"));
-    })
+    	var id = $(this).attr("value");
+   		$.ajax({
+   	        timeout : 20000,
+   	        type : "get",
+   	     	processData: false, 
+   	  		contentType : false,
+   	        dataType : "json",
+   	        url : "/user/stop/"+id,
+   	        success : function(data){
+   	        	successNotify(data.title,data.content);
+   	        },
+   	        error : function(data){
+   	        	errorNotify(data.title,data.content);
+   	        }
+   	    });
+    });
+    
+    //激活按钮
+    $(".fix-stop").click(function(){
+    	var id = $(this).attr("value");
+   		$.ajax({
+   	        timeout : 20000,
+   	        type : "get",
+   	     	processData: false, 
+   	  		contentType : false,
+   	        dataType : "json",
+   	        url : "/user/active/"+id,
+   	        success : function(data){
+   	        	successNotify(data.title,data.content);
+   	        },
+   	        error : function(data){
+   	        	errorNotify(data.title,data.content);
+   	        }
+   	    });
+    });
+    
+    //删除按钮
+    $(".fix-delete").click(function(){
+    	var id = $(this).attr("value");
+    	FormData formData = new FormData();
+    	formData.append("userIds",id);
+   		$.ajax({
+   	        timeout : 20000,
+   	        type : "post",
+   	     	processData: false, 
+   	  		contentType : false,
+   	        dataType : "json",
+   	        url : "/user/delete",
+   	        data : formData,
+   	        success : function(data){
+   	        	successNotify(data.title,data.content);
+   	        },
+   	        error : function(data){
+   	        	errorNotify(data.title,data.content);
+   	        }
+   	    });
+    });
+    
   })
     
 

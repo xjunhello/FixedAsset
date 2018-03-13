@@ -49,6 +49,15 @@ public class UserController {
 	        return "user_list";
 	    }
 	 	
+		@RequestMapping(value = "/modify",method=RequestMethod.GET)
+	    public String toAdd(Model model){
+	 		model.addAttribute("roles", roleSevice.getRoles(null));
+	 		User user = new User();
+	 		model.addAttribute("user", user);
+	 		model.addAttribute("userRoles", user.getRoles());
+	 		return "user_modify";
+	    }
+		
 	 	@RequestMapping(value = "/modify/{userId}",method=RequestMethod.GET)
 	    public String toModify(Model model,@PathVariable("userId") String userId){
 	 		model.addAttribute("roles", roleSevice.getRoles(null));
@@ -110,16 +119,18 @@ public class UserController {
 	 		}
 	    }
 	 	
-	 	@RequestMapping(value = "/delete/{userId}",method=RequestMethod.GET)
+	 	@RequestMapping(value = "/delete",method=RequestMethod.GET)
 	 	@ResponseBody
-	    public String delete(Model model,@PathVariable("userId")String userId){
-	 		if(null==userId)
+	    public String delete(Model model,String [] userIds){
+	 		if(null==userIds || userIds.length ==0)
 	 			return new Msg(MsgStat.error,"参数错误！").toJson();
 	 		try {
-	 			//逻辑删除
-	 			User user = userService.findById(Integer.parseInt(userId));
-	 			user.setIsDelete(Constants.IS_DELETE_TRUE);
-	 			userService.updateByPrimaryKey(user);
+	 			for(String userId : userIds) {
+	 				//逻辑删除
+		 			User user = userService.findById(Integer.parseInt(userId));
+		 			user.setIsDelete(Constants.IS_DELETE_TRUE);
+		 			userService.updateByPrimaryKey(user);
+	 			}
 	 			return new Msg(MsgStat.success,"操作成功！").toJson();
 	 		}catch(Exception dae) {
 	 			return new Msg(MsgStat.error,"操作失败！",dae.getMessage()).toJson();

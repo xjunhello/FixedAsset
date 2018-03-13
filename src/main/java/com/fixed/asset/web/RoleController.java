@@ -3,6 +3,8 @@ package com.fixed.asset.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -15,64 +17,79 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fixed.asset.common.Constants;
 import com.fixed.asset.model.Msg;
 import com.fixed.asset.model.MsgStat;
-import com.fixed.asset.model.User;
-import com.fixed.asset.model.UserExample;
-import com.fixed.asset.model.UserRoleExample;
+import com.fixed.asset.model.Resource;
+import com.fixed.asset.model.RoleExample;
+import com.fixed.asset.model.RoleResourceKey;
+import com.fixed.asset.model.Role;
 import com.fixed.asset.service.RoleService;
-import com.fixed.asset.service.UserRoleService;
-import com.fixed.asset.service.UserService;
+import com.fixed.asset.service.ResourceService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/role")
 public class RoleController {
-		@Autowired
-		UserRoleService userRoleService;
+	
+		private final Logger logger = LoggerFactory.getLogger(this.getClass());
+		
+
 		
 		@Autowired
-		UserService userService;
-	 	
+		RoleService roleService;
+		
 		@Autowired
-		RoleService roleSevice;
+		ResourceService resourceService;
 		
 		@RequestMapping("/get")
 	    public String get(Model model,String keywords){
 			System.out.println("搜索关键词："+keywords);
-			UserExample example = new UserExample();
+			RoleExample example = new RoleExample();
 			if(null!=keywords&&!"".equals(keywords)) {
-				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE).andUserNameLike(keywords);
+				example.or().andRoleNameLike(keywords);
+				example.or().andRemarkLike(keywords);
 			}
-			List<User> ulist = userService.selectByExample(example);
-			if(null==ulist || ulist.size()<=0)
-				ulist = new ArrayList<User>();
-			model.addAttribute("users", ulist);
+			List<Role> list;
+			try {
+				list = roleService.selectByExample(example);
+				if(null==list || list.size()<=0)
+					list = new ArrayList<Role>();
+			} catch (Exception e) {
+				logger.error("角色管理，系统异常。",e);
+				list = new ArrayList<Role>();
+			}
+			model.addAttribute("roles", list);
 			model.addAttribute("keywords", keywords);
-	        return "user_list";
+	        return "role_list";
 	    }
 	 	
-	 	@RequestMapping(value = "/modify/{userId}",method=RequestMethod.GET)
-	    public String toModify(Model model,@PathVariable("userId") String userId){
-	 		model.addAttribute("roles", roleSevice.getRoles(null));
+	 	@RequestMapping(value = "/modify/{roleId}",method=RequestMethod.GET)
+	    public String toModify(Model model,@PathVariable("roleId") String roleId){
 	 		
-	 		User user = new User();
-	 		if(null!=userId)
-	 			user = userService.findById(Integer.parseInt(userId));
-	 		model.addAttribute("user", user);
-	 		model.addAttribute("userRoles", user.getRoles());
-	 		return "user_modify";
+	 		Role role = new Role();
+	 		List<Resource> resources = new ArrayList<Resource>();
+	 		if(null!=roleId)
+				try {
+					resources = resourceService.selectByExample(null);
+					role = roleService.selectByPrimaryKey(Integer.parseInt(roleId));
+				} catch (NumberFormatException e) {
+					role = new Role();
+					role.setResources(new ArrayList<Resource>());
+					logger.error("角色管理，系统异常。",e);
+				} catch (Exception e) {
+					role = new Role();
+					role.setResources(new ArrayList<Resource>());
+					logger.error("角色管理，系统异常。",e);
+				}
+	 		model.addAttribute("resources", resources);
+	 		model.addAttribute("role", role);
+	 		model.addAttribute("roleResources", role.getResources());
+	 		return "role_modify";
 	    }
 	 	
-	 	/**
-	 	 * 
-	 	 * @param model
-	 	 * @param user
-	 	 * @param roleIds
-	 	 * @return
-	 	 */
+
 	 	@RequestMapping(value = "/save",method=RequestMethod.POST)
 	 	@ResponseBody
-	    public String save(Model model,User user,String [] roleIds){
+	    public String save(Model model,Role role,String [] resources){
 	 		try {
-	 			userService.save(user,roleIds);
+	 			roleService.save(role,resources);
 	 			return new Msg(MsgStat.success,"操作成功！").toJson();
 	 		}catch(Exception dae) {
 	 			return new Msg(MsgStat.error,"操作失败！",dae.getMessage()).toJson();
@@ -80,46 +97,15 @@ public class RoleController {
 	    }
 	 	
 
-	 	@RequestMapping(value = "/stop/{userId}",method=RequestMethod.GET)
-	 	@ResponseBody
-	    public String stop(Model model,@PathVariable("userId")String userId){
-	 		if(null==userId)
-	 			return new Msg(MsgStat.error,"参数错误！").toJson();
-	 		try {
-	 			User user = userService.findById(Integer.parseInt(userId));
-	 			user.setStatus(Constants.USER_STATUS_STOP);
-	 			userService.save(user);
-	 			return new Msg(MsgStat.success,"操作成功！").toJson();
-	 		}catch(Exception dae) {
-	 			return new Msg(MsgStat.error,"操作失败！",dae.getMessage()).toJson();
-	 		}
-	    }
 	 	
-	 	@RequestMapping(value = "/active/{userId}",method=RequestMethod.GET)
+	 	@RequestMapping(value = "/delete/{roleId}",method=RequestMethod.GET)
 	 	@ResponseBody
-	    public String active(Model model,@PathVariable("userId")String userId){
-	 		if(null==userId)
+	    public String delete(Model model,@PathVariable("roleId")String roleId){
+	 		if(null==roleId)
 	 			return new Msg(MsgStat.error,"参数错误！").toJson();
 	 		try {
-	 			User user = userService.findById(Integer.parseInt(userId));
-	 			user.setStatus(Constants.USER_STATUS_ACTIVE);
-	 			userService.save(user);
-	 			return new Msg(MsgStat.success,"操作成功！").toJson();
-	 		}catch(Exception dae) {
-	 			return new Msg(MsgStat.error,"操作失败！",dae.getMessage()).toJson();
-	 		}
-	    }
-	 	
-	 	@RequestMapping(value = "/delete/{userId}",method=RequestMethod.GET)
-	 	@ResponseBody
-	    public String delete(Model model,@PathVariable("userId")String userId){
-	 		if(null==userId)
-	 			return new Msg(MsgStat.error,"参数错误！").toJson();
-	 		try {
-	 			//逻辑删除
-	 			User user = userService.findById(Integer.parseInt(userId));
-	 			user.setIsDelete(Constants.IS_DELETE_TRUE);
-	 			userService.updateByPrimaryKey(user);
+	 			//物理删除
+	 			roleService.deleteByPrimaryKey(Integer.parseInt(roleId));
 	 			return new Msg(MsgStat.success,"操作成功！").toJson();
 	 		}catch(Exception dae) {
 	 			return new Msg(MsgStat.error,"操作失败！",dae.getMessage()).toJson();

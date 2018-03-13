@@ -5,6 +5,14 @@
     <id column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <collection property="resources" ofType="com.fixed.asset.model.Resource" >
+  			 <id column="resource_id" jdbcType="INTEGER" property="resourceId" />
+		    <result column="resource_name" jdbcType="VARCHAR" property="resourceName" />
+		    <result column="remark" jdbcType="VARCHAR" property="remark" />
+		    <result column="resource_url" jdbcType="VARCHAR" property="resourceUrl" />
+		    <result column="resource_type" jdbcType="BIT" property="resourceType" />
+		    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+  	</collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -83,9 +91,13 @@
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from role
-    where role_id = #{roleId,jdbcType=INTEGER}
+    r1.*,r2.*
+    from role r1 
+    left join role_resource r2 
+    on r1.role_id =r2.role_id 
+    left join resource r3 
+    on r2.resource_id = r3.resource_id  
+    where r1.role_id = #{roleId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from role
@@ -97,13 +109,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.fixed.asset.model.Role">
+  <insert id="insert" parameterType="com.fixed.asset.model.Role" useGeneratedKeys="true" keyProperty="roleId">
     insert into role (role_id, role_name, remark
       )
     values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.fixed.asset.model.Role">
+  <insert id="insertSelective" parameterType="com.fixed.asset.model.Role" useGeneratedKeys="true" keyProperty="roleId">
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="roleId != null">

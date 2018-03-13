@@ -13,6 +13,8 @@ import com.fixed.asset.mapper.UserMapper;
 import com.fixed.asset.mapper.UserRoleMapper;
 import com.fixed.asset.model.Role;
 import com.fixed.asset.model.RoleExample;
+import com.fixed.asset.model.RoleResourceExample;
+import com.fixed.asset.model.RoleResourceKey;
 import com.fixed.asset.model.User;
 import com.fixed.asset.model.UserExample;
 import com.fixed.asset.model.UserRole;
@@ -37,10 +39,19 @@ public class RoleService {
 	}
 
 	public int deleteByExample(RoleExample example) throws Exception{
+		List<Role> rs = roleMapper.selectByExample(example);
+		rs.forEach(role -> {
+			RoleResourceExample rre = new RoleResourceExample();
+			rre.or().andRoleIdEqualTo(role.getRoleId());
+			rrMapper.deleteByExample(rre);
+		});
 		return roleMapper.deleteByExample(example);
 	}
 
 	public int deleteByPrimaryKey(Integer roleId) throws Exception{
+		RoleResourceExample rre = new RoleResourceExample();
+		rre.or().andRoleIdEqualTo(roleId);
+		rrMapper.deleteByExample(rre);
 		return roleMapper.deleteByPrimaryKey(roleId);
 	}
 
@@ -76,5 +87,22 @@ public class RoleService {
 
 	public int updateByPrimaryKey(Role record) throws Exception{
 		return roleMapper.updateByPrimaryKey(record);
+	}
+
+	public void save(Role role, String[] resources) throws Exception {
+		if(null != role.getRoleId()) {
+			roleMapper.updateByPrimaryKeySelective(role);
+			RoleResourceExample rre = new RoleResourceExample();
+			rre.or().andRoleIdEqualTo(role.getRoleId());
+			rrMapper.deleteByExample(rre);
+		}else {
+			roleMapper.insert(role);
+		}
+		for(String r : resources) {
+			RoleResourceKey rrk =  new RoleResourceKey();
+			rrk.setRoleId(role.getRoleId());
+			rrk.setResourceId(Integer.parseInt(r));
+			rrMapper.insert(rrk);
+		}
 	}
 }

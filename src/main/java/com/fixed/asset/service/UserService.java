@@ -2,6 +2,7 @@ package com.fixed.asset.service;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.fixed.asset.common.Constants;
 import com.fixed.asset.mapper.UserMapper;
 import com.fixed.asset.mapper.UserRoleMapper;
 import com.fixed.asset.model.User;
@@ -44,7 +46,7 @@ public class UserService {
     public User save(User user,String [] roleIds) throws DataAccessException{
     	//保存用户对象
     	if(user.getUserId()!=null) {
-    		userMapper.updateByPrimaryKey(user);
+    		userMapper.updateByPrimaryKeySelective(user);
     		List<Integer> rids = new ArrayList<Integer>();
     		for(String roleIdStr : roleIds) {
     			rids.add(Integer.parseInt(roleIdStr));
@@ -54,6 +56,9 @@ public class UserService {
     		.andRoleIdIn(rids);
     		userRoleMapper.deleteByExample(ure);
     	}else {
+    		user.setCreateTime(new Date());
+    		user.setIsDelete(Constants.IS_DELETE_FALSE);
+    		user.setStatus(Constants.USER_STATUS_ACTIVE);
     		userMapper.insert(user);
     	}
     	//处理权限映射

@@ -1,16 +1,18 @@
 function successNotify(title,msg){
-	$.notify({
-		type:'success',
-		title: title,
-		message: msg
+	Lobibox.notify('success', {
+	    position : 'top right',
+	    title:title,
+	    msg : msg
 	});
 }
 
 function errorNotify(title,msg){
-	$.notify({
-		type:'error',
-		title: title,
-		message: msg
+	
+	
+	Lobibox.notify('error', {
+	    position : 'top right',
+	    title:title,
+	    msg : msg
 	});
 }
 

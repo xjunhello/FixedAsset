@@ -7,4 +7,10 @@ public class Constants {
  	//是否删除
  	public static final Integer IS_DELETE_TRUE=1;//已删除
  	public static final Integer IS_DELETE_FALSE=0;//未删除
+ 	
+ 	/**
+	 * 默认分页参数
+	 */
+	public static final int PAGENO=1;
+	public static final int PAGESIZE=50;
 }

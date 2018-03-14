@@ -74,12 +74,16 @@
 		                  <td th:text="${user.userName}">2018-01-01</td>
 		                  <td th:text="${user.fullname}">王主任
 		                  </td >
-		                  <td th:text="${user.status == '0'} ? '正常' : '冻结'">50.0万</td>
-		                  <td>待审批</td>
+		                  <td  >
+		                  <span th:if="${user.status == 0}" class="label label-success" >正常</span>
+		                  <span th:if="${user.status == 1}" class="label label-danger">冻结</span>
+		                  </td>
+		                  <td><span th:each="role : ${user.roles}" th:text="${role.roleName+','}"></span></td>
 		                  <td>
 		                  	
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-success btn-xs fix-update">编辑</button>
 		                  	<button th:value="${user.userId}" th:if="${user.status == '0'}" type="button" class="btn  btn-danger btn-xs fix-coll">冻结</button>
+		                  	<button th:value="${user.userId}" th:if="${user.status == '1'}" type="button" class="btn  btn-success btn-xs fix-coll">激活</button>
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-info btn-xs fix-detail">查看</button>
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-danger btn-xs fix-delete">删除</button>
 		                  </td>
@@ -114,7 +118,7 @@
         "language": {
             "url": "/ALTE/bower_components/datatables.net/datatable.zh_CN.lang"
         }
-    })
+    });
     
     //绑定新增按钮操作
     $('#addUserBtn').click(function(){
@@ -122,11 +126,11 @@
     });
     //绑定编辑按钮
     $(".fix-update").click(function(){
-    	openWindow("/user/modify/"+$(this).attr("value"));
+    	openWindow("编辑用户","/user/modify/"+$(this).attr("value"));
     });
     //查看按钮
     $(".fix-detail").click(function(){
-    	openWindow("/user/detail/"+$(this).attr("value"));
+    	openWindow("查看用户","/user/detail/"+$(this).attr("value"));
     });
     //冻结按钮
     $(".fix-stop").click(function(){
@@ -148,7 +152,7 @@
     });
     
     //激活按钮
-    $(".fix-stop").click(function(){
+    $(".fix-active").click(function(){
     	var id = $(this).attr("value");
    		$.ajax({
    	        timeout : 20000,
@@ -169,7 +173,7 @@
     //删除按钮
     $(".fix-delete").click(function(){
     	var id = $(this).attr("value");
-    	FormData formData = new FormData();
+    	var formData = new FormData();
     	formData.append("userIds",id);
    		$.ajax({
    	        timeout : 20000,
@@ -188,7 +192,7 @@
    	    });
     });
     
-  })
+  });
     
 
 </script>

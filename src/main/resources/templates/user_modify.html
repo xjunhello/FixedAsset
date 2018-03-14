@@ -63,10 +63,10 @@
 	                </select>
                   </div>
                   
-                   <label for="password" class="col-xs-2 control-label">状态</label>
+                   <label for="status" class="col-xs-2 control-label">状态</label>
 
                   <div class="col-xs-10 col-sm-4 checkbox">
-                   	<input type="checkbox"> 冻结
+                   	<input type="checkbox" name="status" id ="status" th:checked="${user.status == 1}" > 冻结
                   </div>
                 </div>
                 
@@ -105,7 +105,7 @@
 		    },
 		    valid: function(form) {
 		   		var formData = new FormData($('#form1')[0]);
-		   		$.ajax({
+		   		/*$.ajax({
 		   	        timeout : 20000,
 		   	        type : "post",
 		   	     	processData: false, 
@@ -120,7 +120,43 @@
 		   	        	console.log(data);
 		   	        	alert("错误！"+data);
 		   	        }
-		   	    });
+		   	    });*/
+		   		
+		   		$.ajax({
+				    async : false,
+				    type : "POST",
+				    url : "/user/saver",//提交的URL
+				    data : $('#form1').serialize(), // 要提交的表单
+				    dataType : "json",
+				    mimeType : "application/json",
+				    success : function(data, status) {//status 200
+						if (data.success) {
+						    Lobibox.notify('info', {
+							size : 'mini',
+							position : 'top right',
+							msg : "保存基础信息成功"
+						    });
+						    $("#userSaveSuccess").val("true");
+						    $("input[name='userid']").val(data.code);
+						    result = data;
+						    $("#logtype").attr("disabled",true);
+						    $("#userformdiv").addClass("hidden");
+						} else {
+						    $('#error').html(data.code);
+						    $('#accordion').show();
+						    $('#collapseOneContent').html(data.desc);
+						}
+				    },
+				    error : function(data, status) {
+						$("#submit_button").attr("disabled", false);
+						Lobibox.notify('error', {
+						    size : 'mini',
+						    position : 'top right',
+						    msg : data.desc
+						});
+				    }
+				});
+		   		
 		    }
 		});
 	  

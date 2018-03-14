@@ -1,4 +1,4 @@
-function successNotify(msg){
+function successNotify(title,msg){
 	$.notify({
 		type:'success',
 		title: title,
@@ -6,7 +6,7 @@ function successNotify(msg){
 	});
 }
 
-function errorNotify(msg){
+function errorNotify(title,msg){
 	$.notify({
 		type:'error',
 		title: title,
@@ -15,7 +15,6 @@ function errorNotify(msg){
 }
 
 function openWindow(title,url){
-	alert(title);
 	layer.open({
 	      type: 2,
 	      title: title,

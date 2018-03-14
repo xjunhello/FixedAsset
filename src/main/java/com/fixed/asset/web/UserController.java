@@ -40,8 +40,10 @@ public class UserController {
 			UserExample example = new UserExample();
 			if(null!=keywords&&!"".equals(keywords)) {
 				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE).andUserNameLike(keywords);
+			}else {
+				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE);
 			}
-			List<User> ulist = userService.selectByExample(example);
+			List<User> ulist = userService.selectUserAndRolesByExample(example);
 			if(null==ulist || ulist.size()<=0)
 				ulist = new ArrayList<User>();
 			model.addAttribute("users", ulist);
@@ -119,7 +121,7 @@ public class UserController {
 	 		}
 	    }
 	 	
-	 	@RequestMapping(value = "/delete",method=RequestMethod.GET)
+	 	@RequestMapping(value = "/delete",method=RequestMethod.POST)
 	 	@ResponseBody
 	    public String delete(Model model,String [] userIds){
 	 		if(null==userIds || userIds.length ==0)

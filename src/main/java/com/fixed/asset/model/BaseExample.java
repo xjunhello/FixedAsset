@@ -5,7 +5,7 @@ import com.fixed.asset.common.Constants;
 public class BaseExample {
 	protected Integer pageNo = Constants.PAGENO;
 	protected Integer pageSize = Constants.PAGESIZE;
-	protected Integer pageStart=0;
+	protected Integer pageStart= Constants.PAGESTART;
 	
 	public Integer getPageStart() {
 		return pageStart;
@@ -23,7 +23,7 @@ public class BaseExample {
 
 	public void setPageNo(Integer pageNo) {
 		this.pageNo = pageNo;
-		this.pageStart = (pageNo-1)*pageSize;
+//		this.pageStart = (pageNo-1)*pageSize;
 	}
 
 	public Integer getPageSize() {
@@ -32,7 +32,7 @@ public class BaseExample {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
-		this.pageStart = (pageNo-1)*pageSize;
+//		this.pageStart = (pageNo-1)*pageSize;
 	}
 
 	public boolean isPaged() {

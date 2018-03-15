@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fixed.asset.common.Constants;
+import com.fixed.asset.common.DataTablePage;
 import com.fixed.asset.common.JsonMessage;
 import com.fixed.asset.common.PageList;
 import com.fixed.asset.model.Msg;
@@ -79,16 +80,18 @@ public class UserController {
 		@RequestMapping("/ajax_get")
 		@ResponseBody
 	    public String ajaxGet(Model model,String keywords,
-	    		@RequestParam(value = "pageNo", required = false) Integer  pageNo,
-				@RequestParam(value = "pageSize", required = false) Integer  pageSize, 
-				@RequestParam(value = "orderBy", required = false) String orderBy){
+	    		@RequestParam(value = "start", required = false) Integer  start,
+				@RequestParam(value = "length", required = false) Integer  length, 
+				@RequestParam(value = "draw", required = false) Integer  draw,
+				@RequestParam(value = "search", required = false) String  search,
+				@RequestParam(value = "sort", required = false) String orderBy){
 			System.out.println("搜索关键词："+keywords);
 			Map<String, Object> data = new HashMap<>();
 			
 	        UserExample example = new UserExample();
 	        example.setPaged(true);
-			example.setPageNo(null == pageNo ? Constants.PAGENO : pageNo);
-			example.setPageSize(null == pageSize ? Constants.PAGESIZE : pageSize);
+	        example.setPageStart(start);
+			example.setPageSize(null == length ? Constants.PAGESIZE : length);
 	        
 			
 			if(null!=keywords&&!"".equals(keywords)) {
@@ -103,7 +106,8 @@ public class UserController {
 			Long totalSize = userService.countByExample(example);
 			if(null==ulist || ulist.size()<=0)
 				ulist = new ArrayList<User>();
-			PageList<User> page = new PageList<User>(ulist, pageNo, pageSize,totalSize);
+//			PageList<User> page = new PageList<User>(ulist, start, length,totalSize);
+			DataTablePage<User> page = new DataTablePage<>(ulist, start, length, totalSize);
 			if(null!=page)
 				page.addParam("keywords", keywords);
 			model.addAttribute("page", page);

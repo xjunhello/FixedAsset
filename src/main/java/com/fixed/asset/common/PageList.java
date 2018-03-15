@@ -1,5 +1,6 @@
 package com.fixed.asset.common;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
@@ -14,12 +15,25 @@ import java.util.Map;
 public class PageList<T> {
 	
 	public PageList(List<T> objList,Integer pageNo,Integer pageSize,Long totalSize) {
+		this.params = new HashMap<String,Object>();
 		this.list = objList;
-		this.pageNo = pageNo;
-		this.pageSize = pageSize;
-		this.totalSize = totalSize;
+		this.pageNo = pageNo == null ? Constants.PAGENO : pageNo;
+		this.pageSize = pageSize == null ? Constants.PAGESIZE : pageSize;
+		this.totalSize = totalSize == null ? 0 : totalSize;
+		flushTotalPage();
 	}
- 
+	public void flushTotalPage() {
+		if(this.totalSize==null || this.totalSize.longValue() ==0) {
+			this.totalPage = 0;
+		}else if(totalSize % pageSize==0) {
+			this.totalPage = (int) (totalSize /pageSize);
+		}else {
+			this.totalPage = (int) (totalSize /pageSize)+1;
+		}
+	}
+	public void addParam(String key,Object value) {
+		this.params.put(key, value);
+	}
 	public Long getTotalSize() {
 		return totalSize;
 	}

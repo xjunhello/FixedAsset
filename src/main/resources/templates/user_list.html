@@ -34,7 +34,7 @@
 	                      <label for="inputEmail3" class="col-sm-2 control-label">关键词</label>
 	
 	                      <div class="col-sm-12 col-md-3">
-	                        <input type="text" class="form-control" id="keywords" name="keywords" th:value="${page.params['keywords']}">
+	                        <input type="text" class="form-control" id="keywords" name="keywords" >
 	                      </div>
 	                      
 	                      <div class="col-sm-12 col-md-2 pull-right">
@@ -69,7 +69,7 @@
 		                </tr>
 		                </thead>
 		                <tbody>
-		                
+		                <!--/*  
 		                <tr th:each="user : ${page.list}"  >
 		                  <td th:text="${user.userName}">2018-01-01</td>
 		                  <td th:text="${user.fullname}">王主任
@@ -86,7 +86,7 @@
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-danger btn-xs fix-delete">删除</button>
 		                  </td>
 		                </tr>
-		                
+		                */-->
 		              </table>
 		            </div>
 		            <!-- /.box-body -->
@@ -113,102 +113,23 @@
 <script>
 
   $(function () {
-  /**$('#example2').DataTable({
+  $('#example2').DataTable({
         "language": {
             "url": "/ALTE/bower_components/datatables.net/datatable.zh_CN.lang"
-        }
-    });*/
+        },
+        ajax: {
+            url: '/user/ajax_get',
+            dataSrc: 'list',
+            columns:[
+            	{data:1},
+            	{data:4},
+            	{data:8},
+            	{data:8}
+            ]
+        },
+    });
     
-    //初始化table  
-    var oTable1 = $('#example2')  
-            .dataTable(  
-                    {  
-                        "bPaginate" : true,//分页工具条显示  
-                        //"sPaginationType" : "full_numbers",//分页工具条样式  
-                        "bStateSave" : true, //是否打开客户端状态记录功能,此功能在ajax刷新纪录的时候不会将个性化设定回复为初始化状态    
-                        "bScrollCollapse" : true, //当显示的数据不足以支撑表格的默认的高度  
-                        "bLengthChange" : true, //每页显示的记录数  
-                        "bFilter" : false, //搜索栏  
-                        "bSort" : true, //是否支持排序功能  
-                        "bInfo" : true, //显示表格信息  
-                        "bAutoWidth" : true, //自适应宽度  
-                        "bJQueryUI" : false,//是否开启主题  
-                        "bDestroy" : true,  
-                        "bProcessing" : true, //开启读取服务器数据时显示正在加载中……特别是大数据量的时候，开启此功能比较好  
-                        "bServerSide" : true,//服务器处理分页，默认是false，需要服务器处理，必须true  
-                        "sAjaxDataProp" : "aData",//是服务器分页的标志，必须有   
-                        "sAjaxSource" : "/user/ajax_get",//通过ajax实现分页的url路径。    
-                        "aoColumns" : [//初始化要显示的列  
-                                {  
-                                    "mDataProp" : "userId",//获取列数据，跟服务器返回字段一致  
-                                    "sClass" : "center",//显示样式  
-                                    "mRender" : function(data, type, full) {//返回自定义的样式  
-                                        return "<label><input type='checkbox' class='ace' /><span class='lbl'></span></label>"  
-                                    }  
-                                },  
-                                {  
-                                    "mDataProp" : "userName"  
-                                }, {  
-                                    "mDataProp" : "fullName"  
-                                }, 
-                                {  
-                                    "mDataProp" : "status"  
-                                }, 
-                                {  
-                                    "mDataProp" : "status"  
-                                }],  
-                        "aoColumnDefs" : [ {//用来设置列一些特殊列的属性  
-                            "bSortable" : false,  
-                            "aTargets" : [ 0 ]  
-                        //第一列不排序  
-                        }, {  
-                            "bSortable" : false,  
-                            "aTargets" : [ 1 ]  
-                        }, {  
-                            "bSortable" : false,  
-                            "aTargets" : [ 2 ]  
-                        } ],  
-                        "oLanguage" : {//语言设置  
-                            "sProcessing" : "处理中...",  
-                            "sLengthMenu" : "显示 _MENU_ 项结果",  
-                            "sZeroRecords" : "没有匹配结果",  
-                            "sInfo" : "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",  
-                            "sInfoEmpty" : "显示第 0 至 0 项结果，共 0 项",  
-                            "sInfoFiltered" : "(由 _MAX_ 项结果过滤)",  
-                            "sInfoPostFix" : "",  
-                            "sSearch" : "搜索:",  
-                            "sUrl" : "",  
-                            "sEmptyTable" : "表中数据为空",  
-                            "sLoadingRecords" : "载入中...",  
-                            "sInfoThousands" : ",",  
-                            "oPaginate" : {  
-                                "sFirst" : "首页",  
-                                "sPrevious" : "上页",  
-                                "sNext" : "下页",  
-                                "sLast" : "末页"  
-                            },  
-                            "oAria" : {  
-                                "sSortAscending" : ": 以升序排列此列",  
-                                "sSortDescending" : ": 以降序排列此列"  
-                            }  
-                        }  
-                    });  
-
-    //全选  
-    $('table th input:checkbox').on(  
-            'click',  
-            function() {  
-                var that = this;  
-                $(this).closest('table').find(  
-                        'tr > td:first-child input:checkbox').each(  
-                        function() {  
-                            this.checked = that.checked;  
-                            $(this).closest('tr').toggleClass('selected');  
-                        });  
-
-            });  
-
-});  
+   
   
     //绑定新增按钮操作
     $('#addUserBtn').click(function(){

@@ -61,17 +61,18 @@ public class UserController {
 			example.setPageSize(null == pageSize ? Constants.PAGESIZE : pageSize);
 			if(null!=keywords&&!"".equals(keywords)) {
 				keywords = keywords.trim();
+				model.addAttribute("keywords", keywords);
 				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE).andUserNameLike("%"+keywords+"%");
 			}else {
 				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE);
 			}
-			List<User> ulist = userService.selectByExample(example);
-			Long totalSize = userService.countByExample(example);
-			if(null==ulist || ulist.size()<=0)
-				ulist = new ArrayList<User>();
-			PageList<User> pageList = new PageList<User>(ulist, pageNo, pageSize,totalSize);
-			model.addAttribute("page", pageList);
-			model.addAttribute("keywords", keywords);
+//			List<User> ulist = userService.selectByExample(example);
+//			Long totalSize = userService.countByExample(example);
+//			if(null==ulist || ulist.size()<=0)
+//				ulist = new ArrayList<User>();
+//			PageList<User> pageList = new PageList<User>(ulist, pageNo, pageSize,totalSize);
+//			model.addAttribute("page", pageList);
+			
 	        return "user_list";
 	    }
 	 	
@@ -102,12 +103,13 @@ public class UserController {
 			Long totalSize = userService.countByExample(example);
 			if(null==ulist || ulist.size()<=0)
 				ulist = new ArrayList<User>();
-			PageList<User> pageList = new PageList<User>(ulist, pageNo, pageSize,totalSize);
-			pageList.getParams().put("keywords", keywords);
-			model.addAttribute("page", pageList);
+			PageList<User> page = new PageList<User>(ulist, pageNo, pageSize,totalSize);
+			if(null!=page)
+				page.addParam("keywords", keywords);
+			model.addAttribute("page", page);
 			model.addAttribute("users", ulist);
 			model.addAttribute("keywords", keywords);
-	        return new Gson().toJson(pageList);
+	        return new Gson().toJson(page);
 	    }
 		
 		@RequestMapping(value = "/modify",method=RequestMethod.GET)

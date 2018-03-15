@@ -46,7 +46,7 @@
         </if>
       </foreach>
     </where>
-     <include refid="Page_Clause" />
+    
   </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>
@@ -94,6 +94,7 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+     <include refid="Page_Clause" />
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserAndRoleResult">
     select u.*,r.*

@@ -34,11 +34,11 @@
 	                      <label for="inputEmail3" class="col-sm-2 control-label">关键词</label>
 	
 	                      <div class="col-sm-12 col-md-3">
-	                        <input type="text" class="form-control" id="keywords" name="keywords" th:value="${keywords}">
+	                        <input type="text" class="form-control" id="keywords" name="keywords" th:value="${page.params['keywords']}">
 	                      </div>
 	                      
 	                      <div class="col-sm-12 col-md-2 pull-right">
-	                      	<button type="submit" class="btn btn-default  pull-right">提交</button>
+	                      	<button type="submit" class="btn btn-success  pull-right">查询</button>
 	                      </div>
 	                    </div>
 	                  </div>
@@ -69,7 +69,8 @@
 		                </tr>
 		                </thead>
 		                <tbody>
-		                <tr th:each="user : ${users}"  >
+		                
+		                <tr th:each="user : ${page.list}"  >
 		                  <td th:text="${user.userName}">2018-01-01</td>
 		                  <td th:text="${user.fullname}">王主任
 		                  </td >
@@ -78,14 +79,14 @@
 		                  <span th:if="${user.status == 1}" class="label label-danger">冻结</span>
 		                  </td>
 		                  <td>
-		                  	
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-success btn-xs fix-update">编辑</button>
-		                  	<button th:value="${user.userId}" th:if="${user.status == '0'}" type="button" class="btn  btn-danger btn-xs fix-coll">冻结</button>
-		                  	<button th:value="${user.userId}" th:if="${user.status == '1'}" type="button" class="btn  btn-success btn-xs fix-coll">激活</button>
+		                  	<button th:value="${user.userId}" th:if="${user.status == 0}" type="button" class="btn  btn-danger btn-xs fix-coll">冻结</button>
+		                  	<button th:value="${user.userId}" th:if="${user.status == 1}" type="button" class="btn  btn-success btn-xs fix-coll">激活</button>
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-info btn-xs fix-detail">查看</button>
 		                  	<button th:value="${user.userId}" type="button" class="btn  btn-danger btn-xs fix-delete">删除</button>
 		                  </td>
 		                </tr>
+		                
 		              </table>
 		            </div>
 		            <!-- /.box-body -->
@@ -149,6 +150,9 @@
                                     "mDataProp" : "userName"  
                                 }, {  
                                     "mDataProp" : "fullName"  
+                                }, 
+                                {  
+                                    "mDataProp" : "status"  
                                 }, 
                                 {  
                                     "mDataProp" : "status"  

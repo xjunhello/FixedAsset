@@ -12,5 +12,5 @@ public class Constants {
 	 * 默认分页参数
 	 */
 	public static final int PAGENO=1;
-	public static final int PAGESIZE=50;
+	public static final int PAGESIZE=2;
 }

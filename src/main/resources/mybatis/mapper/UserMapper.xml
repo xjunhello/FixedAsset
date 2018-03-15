@@ -13,6 +13,11 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
   </resultMap>
+  <sql id="Page_Clause">
+  	 <if test="paged">
+      	limit ${pageStart},${pageSize}
+    </if>
+  </sql>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -41,6 +46,7 @@
         </if>
       </foreach>
     </where>
+     <include refid="Page_Clause" />
   </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fixed.asset.common.Constants;
 import com.fixed.asset.common.JsonMessage;
+import com.fixed.asset.common.PageList;
 import com.fixed.asset.model.Msg;
 import com.fixed.asset.model.MsgStat;
 import com.fixed.asset.model.User;
@@ -27,8 +28,10 @@ import com.fixed.asset.model.UserExample;
 import com.fixed.asset.service.RoleService;
 import com.fixed.asset.service.UserRoleService;
 import com.fixed.asset.service.UserService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.google.gson.Gson;
+
+
+
 
 
 @Controller
@@ -47,9 +50,15 @@ public class UserController {
 		RoleService roleSevice;
 		
 		@RequestMapping("/get")
-	    public String get(Model model,String keywords){
+	    public String get(Model model,String keywords,
+	    		@RequestParam(value = "pageNo", required = false) Integer  pageNo,
+				@RequestParam(value = "pageSize", required = false) Integer  pageSize, 
+				@RequestParam(value = "orderBy", required = false) String orderBy){
 			System.out.println("搜索关键词："+keywords);
 			UserExample example = new UserExample();
+			example.setPaged(true);
+			example.setPageNo(null == pageNo ? Constants.PAGENO : pageNo);
+			example.setPageSize(null == pageSize ? Constants.PAGESIZE : pageSize);
 			if(null!=keywords&&!"".equals(keywords)) {
 				keywords = keywords.trim();
 				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE).andUserNameLike("%"+keywords+"%");
@@ -57,9 +66,11 @@ public class UserController {
 				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE);
 			}
 			List<User> ulist = userService.selectByExample(example);
+			Long totalSize = userService.countByExample(example);
 			if(null==ulist || ulist.size()<=0)
 				ulist = new ArrayList<User>();
-			model.addAttribute("users", ulist);
+			PageList<User> pageList = new PageList<User>(ulist, pageNo, pageSize,totalSize);
+			model.addAttribute("page", pageList);
 			model.addAttribute("keywords", keywords);
 	        return "user_list";
 	    }
@@ -72,23 +83,31 @@ public class UserController {
 				@RequestParam(value = "orderBy", required = false) String orderBy){
 			System.out.println("搜索关键词："+keywords);
 			Map<String, Object> data = new HashMap<>();
-	        pageNo = (null == pageNo) ? Constants.PAGENO:pageNo;
-	        pageSize = (null == pageSize ) ? Constants.PAGESIZE : pageSize;
-	        Page page = PageHelper.startPage(pageNo, pageSize, true);
+			
+	        UserExample example = new UserExample();
+	        example.setPaged(true);
+			example.setPageNo(null == pageNo ? Constants.PAGENO : pageNo);
+			example.setPageSize(null == pageSize ? Constants.PAGESIZE : pageSize);
 	        
-			UserExample example = new UserExample();
+			
 			if(null!=keywords&&!"".equals(keywords)) {
 				keywords = keywords.trim();
 				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE).andUserNameLike("%"+keywords+"%");
 			}else {
 				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE);
 			}
+			
+			
 			List<User> ulist = userService.selectByExample(example);
+			Long totalSize = userService.countByExample(example);
 			if(null==ulist || ulist.size()<=0)
 				ulist = new ArrayList<User>();
+			PageList<User> pageList = new PageList<User>(ulist, pageNo, pageSize,totalSize);
+			pageList.getParams().put("keywords", keywords);
+			model.addAttribute("page", pageList);
 			model.addAttribute("users", ulist);
 			model.addAttribute("keywords", keywords);
-	        return ;
+	        return new Gson().toJson(pageList);
 	    }
 		
 		@RequestMapping(value = "/modify",method=RequestMethod.GET)

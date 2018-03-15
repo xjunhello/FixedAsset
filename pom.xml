@@ -26,11 +26,7 @@
 
 	<dependencies>
 	
-	<dependency>
-     <groupId>com.github.pagehelper</groupId>
-     <artifactId>pagehelper</artifactId>
-     <version>4.1.4</version>
- </dependency>
+	
  
 	<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 <dependency>

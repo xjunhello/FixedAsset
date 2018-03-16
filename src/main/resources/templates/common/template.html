@@ -111,7 +111,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li th:class="${activeId == '1' } ? 'active'"><a href="index.html"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+            <li th:class="${activeId == '1' } ? 'active'"><a href="index.html" th:href="@{/role/get}"><i class="fa fa-circle-o"></i> 角色管理</a></li>
             <li th:class="${activeId == '2' } ? 'active'"><a href="index2.html" th:href="@{/user/get}"><i class="fa fa-circle-o"></i> 用户管理</a></li>
             <li th:class="${activeId == '3' } ? 'active'"><a href="index2.html"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
           </ul>

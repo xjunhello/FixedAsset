@@ -13,8 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 *
  */
 public class JsonMessage {
+	/**
+	 * 操作结果
+	 */
 	boolean result;
+	/**
+	 * 操作代码（名称）
+	 */
 	String code;
+	/**
+	 * 描述
+	 */
 	String desc;
 	HttpServletResponse response;
 	public boolean isResult() {
@@ -38,7 +47,7 @@ public class JsonMessage {
 	private void init(){
 		response.setCharacterEncoding("utf-8");
 		if(!this.result){
-			response.addHeader("errorcode", "qcerror");
+			response.addHeader("errorcode", "fixedasset-error");
 		}
 		response.setContentType("application/json; charset=utf-8");
 	}
@@ -54,18 +63,15 @@ public class JsonMessage {
 		this.response=response;
 		init();
 	}
-	public static String success(HttpServletResponse response){
-		return new JsonMessage(response,true).toString();
-	}
-//	public static String success(HttpServletResponse response,Object obj){
-//		//TODO 增加对Object转json的操作
-//		return new JsonMessage(response,true).toString();
-//	}
+
 	public static String success(HttpServletResponse response,String code){
-		return new JsonMessage(response,true,code,"").toString();
+		return new JsonMessage(response,true,code,"操作成功").toString();
 	}
-	public static String error(HttpServletResponse response,String desc){
-		return new JsonMessage(response,false, "错误", desc).toString();
+	public static String error(HttpServletResponse response,String code){
+		return new JsonMessage(response,false, code, "操作失败").toString();
+	}
+	public static String success(HttpServletResponse response ,String code,String desc){
+		return new JsonMessage(response,true, code, desc).toString();
 	}
 	public static String error(HttpServletResponse response ,String code,String desc){
 		return new JsonMessage(response,false, code, desc).toString();
@@ -85,6 +91,7 @@ public class JsonMessage {
 	    }  
 	}
 	public String toString(){
+		
 		return "{\"success\":"+this.result+",\"code\":\""+code+"\",\"desc\":\""+desc+"\"}";
 	}
 }

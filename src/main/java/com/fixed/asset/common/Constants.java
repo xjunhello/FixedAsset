@@ -1,6 +1,16 @@
 package com.fixed.asset.common;
 
+import java.util.List;
+
+import com.fixed.asset.model.Resource;
+
 public class Constants {
+	//菜单
+	public static List<Resource> menuFolders;
+	public static List<Resource> menuUrls;
+	public static final Integer RESOURCE_TYPE_MENU_FOLDER=1; //一级菜单
+	public static final Integer RESOURCE_TYPE_MENU_URL=2; //二级菜单
+	public static final Integer RESOURCE_TYPE_OTHER=3; //二级菜单
 	//用户状态
  	public static final Integer USER_STATUS_STOP=1; //冻结
  	public static final Integer USER_STATUS_ACTIVE=0;//激活

@@ -112,7 +112,6 @@
 		        'roleIds':'required;'
 		    },
 		    valid: function(form) {
-		   		console.log('111111111111111');
 		   		$.ajax({
 				    async : false,
 				    type : "POST",
@@ -122,17 +121,18 @@
 				    mimeType : "application/json",
 				    success : function(data, status) {//status 200
 						if (data.success) {
-							parent.successNotify("用户管理","保存用户成功");
+							parent.successNotify(data.code,data.desc);
 						    setTimeout(() => {
 						    	parent.layer.closeAll('iframe'); 
+						    	parent.flushTable();
 							}, 2000);
 						} else {
-							parent.errorNotify("用户管理","保存用户失败"+data.content);
+							parent.errorNotify(data.code,data.desc);
 						}
 				    },
 				    error : function(data, status) {
 						$("#submit_button").attr("disabled", false);
-						parent.errorNotify("用户管理","保存用户失败"+data.content);
+						parent.errorNotify(data.code,data.desc);
 				    }
 				});
 		   		

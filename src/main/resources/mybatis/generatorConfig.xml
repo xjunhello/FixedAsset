@@ -52,7 +52,7 @@
             <property name="enableSubPackages" value="false" />  
         </javaClientGenerator>  
         <!-- 指定数据库表 --> 
-        <!--<table tableName="items"></table>  -->
+        <!--<table tableName="items"></table> 
 <table tableName="allot"></table>  
 <table tableName="asset"></table> 
 <table tableName="asset_status"></table> 
@@ -69,6 +69,7 @@
 <table tableName="user"></table> 
 <table tableName="user_role"></table> 
 <table tableName="use_entry"></table> 
-<table tableName="use_group"></table> 
+<table tableName="use_group"></table>  -->
+<table tableName="resource"></table> 
     </context>  
 </generatorConfiguration>  

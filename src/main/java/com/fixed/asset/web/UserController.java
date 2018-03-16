@@ -22,6 +22,7 @@ import com.fixed.asset.common.Constants;
 import com.fixed.asset.common.DataTablePage;
 import com.fixed.asset.common.JsonMessage;
 import com.fixed.asset.common.PageList;
+import com.fixed.asset.common.op;
 import com.fixed.asset.model.Msg;
 import com.fixed.asset.model.MsgStat;
 import com.fixed.asset.model.User;
@@ -149,7 +150,7 @@ public class UserController {
 	    public String save(HttpServletResponse response,Model model,User user,String [] roleIds){
 	 		try {
 	 			userService.save(user,roleIds);
-	 			return JsonMessage.success(response);
+	 			return JsonMessage.success(response,op.USER_UPDATE);
 	 		}catch(Exception e) {
 	 			logger.error("用户管理：保存用户失败！", e);
 	 			return JsonMessage.error(response, "保存用户失败！");
@@ -165,8 +166,8 @@ public class UserController {
 	 		try {
 	 			User user = userService.findById(Integer.parseInt(userId));
 	 			user.setStatus(Constants.USER_STATUS_STOP);
-	 			userService.save(user);
-	 			return  JsonMessage.success(response);
+	 			userService.updateByPrimaryKey(user);
+	 			return  JsonMessage.success(response,op.USER_STOP);
 	 		}catch(Exception e) {
 	 			logger.error("用户管理：冻结用户失败！", e);
 	 			return JsonMessage.error(response, "冻结用户失败！");
@@ -181,8 +182,8 @@ public class UserController {
 	 		try {
 	 			User user = userService.findById(Integer.parseInt(userId));
 	 			user.setStatus(Constants.USER_STATUS_ACTIVE);
-	 			userService.save(user);
-	 			return  JsonMessage.success(response);
+	 			userService.updateByPrimaryKey(user);
+	 			return  JsonMessage.success(response,op.USER_ACTIVE);
 	 		}catch(Exception e) {
 	 			logger.error("用户管理：激活用户失败！", e);
 	 			return JsonMessage.error(response, "激活用户失败！");
@@ -201,7 +202,7 @@ public class UserController {
 		 			user.setIsDelete(Constants.IS_DELETE_TRUE);
 		 			userService.updateByPrimaryKey(user);
 	 			}
-	 			return JsonMessage.success(response);
+	 			return JsonMessage.success(response,op.USER_DELETE);
 	 		}catch(Exception e) {
 	 			logger.error("用户管理：删除用户失败！", e);
 	 			return JsonMessage.error(response, "删除用户失败！");

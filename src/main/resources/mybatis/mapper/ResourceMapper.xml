@@ -9,6 +9,7 @@
     <result column="resource_type" jdbcType="INTEGER" property="resourceType" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="order_no" jdbcType="INTEGER" property="orderNo" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    resource_id, resource_name, remark, resource_url, resource_type, parent_id, icon
+    resource_id, resource_name, remark, resource_url, resource_type, parent_id, icon, 
+    order_no
   </sql>
   <select id="selectByExample" parameterType="com.fixed.asset.model.ResourceExample" resultMap="BaseResultMap">
     select
@@ -104,10 +106,10 @@
   <insert id="insert" parameterType="com.fixed.asset.model.Resource">
     insert into resource (resource_id, resource_name, remark, 
       resource_url, resource_type, parent_id, 
-      icon)
+      icon, order_no)
     values (#{resourceId,jdbcType=INTEGER}, #{resourceName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{resourceUrl,jdbcType=VARCHAR}, #{resourceType,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
-      #{icon,jdbcType=VARCHAR})
+      #{icon,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.fixed.asset.model.Resource">
     insert into resource
@@ -133,6 +135,9 @@
       <if test="icon != null">
         icon,
       </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="resourceId != null">
@@ -155,6 +160,9 @@
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -188,6 +196,9 @@
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +212,8 @@
       resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
       resource_type = #{record.resourceType,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=INTEGER},
-      icon = #{record.icon,jdbcType=VARCHAR}
+      icon = #{record.icon,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +239,9 @@
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=INTEGER},
+      </if>
     </set>
     where resource_id = #{resourceId,jdbcType=INTEGER}
   </update>
@@ -237,7 +252,8 @@
       resource_url = #{resourceUrl,jdbcType=VARCHAR},
       resource_type = #{resourceType,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=INTEGER},
-      icon = #{icon,jdbcType=VARCHAR}
+      icon = #{icon,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=INTEGER}
     where resource_id = #{resourceId,jdbcType=INTEGER}
   </update>
 </mapper>

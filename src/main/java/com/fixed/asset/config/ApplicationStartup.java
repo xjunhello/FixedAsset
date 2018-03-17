@@ -31,5 +31,6 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
     	ResourceExample menuExample = new ResourceExample();
     	folderExample.or().andResourceTypeEqualTo(Constants.RESOURCE_TYPE_MENU_URL);
     	Constants.menuUrls = resourceMapper.selectByExample(menuExample);
+    	System.out.println("菜单初始化：一级菜单："+Constants.menuFolders.size()+"，二级菜单："+Constants.menuUrls.size());
     }
 }

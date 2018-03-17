@@ -38,17 +38,12 @@
                    <label for="roles" class="col-xs-2 control-label">资源</label>
 
                   <div class="col-xs-10 col-sm-4">
-                    <!-- <select class="form-control select2" 
-                    multiple="multiple" data-placeholder="请选择" id="roleIds" name="roleIds" 
-                    th:remove="all-but-first" 
-                        style="width: 100%;">                      
-	                  <option th:each="role : ${roles}" th:value="${role.roleId}" th:text="${role.remark}" value="1"
-	                  th:selected="${#lists.contains(userRoles,role)}">系统管理员</option>
-	                </select> -->
-	                <select multiple="multiple"  id="resourceIds" name="resourceIds" >
-	                	<option th:each="resource : ${resources}" th:value="${resource.resourceId}" th:text="${resource.resourceName}">
-	                	</option>
-	                </select>
+                     <select class="form-control select2" data-placeholder="请选择资源" id="resourceIds" name="resourceIds"  
+                        style="width: 100%;">     
+                        <optgroup label="" th:each="folder : ${menuFolders}" th:label="${folder.remark}">
+                        	<option th:each="menu : ${menuUrls}" th:value="${menu.resource_id}" th:text="${menu.remark}" value="1"></option>
+                        </optgroup>
+	                </select> 
                   </div>
 
                 </div>

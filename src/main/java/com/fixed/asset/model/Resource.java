@@ -15,6 +15,8 @@ public class Resource {
 
     private String icon;
 
+    private Integer orderNo;
+
     public Integer getResourceId() {
         return resourceId;
     }
@@ -69,5 +71,13 @@ public class Resource {
 
     public void setIcon(String icon) {
         this.icon = icon == null ? null : icon.trim();
+    }
+
+    public Integer getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 }

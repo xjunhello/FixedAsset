@@ -3,7 +3,7 @@ package com.fixed.asset.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleExample {
+public class RoleExample extends BaseExample{
     protected String orderByClause;
 
     protected boolean distinct;

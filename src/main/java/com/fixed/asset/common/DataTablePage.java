@@ -1,5 +1,6 @@
 package com.fixed.asset.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,19 @@ public class DataTablePage<T> {
 		this.recordsTotal = recordsFiltered;
 		this.params = new HashMap<String,Object>();
 	}
-	
+	/**
+	 * 默认初始化方法
+	 */
+	public DataTablePage() {
+		this.params = new HashMap<String,Object>();
+		this.data = new ArrayList<T>();
+		this.start = Constants.PAGESTART;
+		this.length = Constants.PAGESIZE;
+		this.recordsFiltered = Constants.TOTALSIZE;
+		this.recordsTotal = Constants.TOTALSIZE;
+		this.params = new HashMap<String,Object>();
+	}
+
 	public void addParam(String key,Object value) {
 		this.params.put(key, value);
 	}

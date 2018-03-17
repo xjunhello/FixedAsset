@@ -51,32 +51,32 @@ public class UserController {
 		@Autowired
 		RoleService roleSevice;
 		
-		@RequestMapping("/get")
-	    public String get(Model model,String keywords,
-	    		@RequestParam(value = "pageNo", required = false) Integer  pageNo,
-				@RequestParam(value = "pageSize", required = false) Integer  pageSize, 
-				@RequestParam(value = "orderBy", required = false) String orderBy){
-			System.out.println("搜索关键词："+keywords);
-			UserExample example = new UserExample();
-			example.setPaged(true);
-			example.setPageNo(null == pageNo ? Constants.PAGENO : pageNo);
-			example.setPageSize(null == pageSize ? Constants.PAGESIZE : pageSize);
-			if(null!=keywords&&!"".equals(keywords)) {
-				keywords = keywords.trim();
-				model.addAttribute("keywords", keywords);
-				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE).andUserNameLike("%"+keywords+"%");
-			}else {
-				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE);
-			}
-//			List<User> ulist = userService.selectByExample(example);
-//			Long totalSize = userService.countByExample(example);
-//			if(null==ulist || ulist.size()<=0)
-//				ulist = new ArrayList<User>();
-//			PageList<User> pageList = new PageList<User>(ulist, pageNo, pageSize,totalSize);
-//			model.addAttribute("page", pageList);
-			
-	        return "user_list";
-	    }
+//		@RequestMapping("/get")
+//	    public String get(Model model,String keywords,
+//	    		@RequestParam(value = "pageNo", required = false) Integer  pageNo,
+//				@RequestParam(value = "pageSize", required = false) Integer  pageSize, 
+//				@RequestParam(value = "orderBy", required = false) String orderBy){
+//			System.out.println("搜索关键词："+keywords);
+//			UserExample example = new UserExample();
+//			example.setPaged(true);
+//			example.setPageNo(null == pageNo ? Constants.PAGENO : pageNo);
+//			example.setPageSize(null == pageSize ? Constants.PAGESIZE : pageSize);
+//			if(null!=keywords&&!"".equals(keywords)) {
+//				keywords = keywords.trim();
+//				model.addAttribute("keywords", keywords);
+//				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE).andUserNameLike("%"+keywords+"%");
+//			}else {
+//				example.or().andIsDeleteEqualTo(Constants.IS_DELETE_FALSE);
+//			}
+////			List<User> ulist = userService.selectByExample(example);
+////			Long totalSize = userService.countByExample(example);
+////			if(null==ulist || ulist.size()<=0)
+////				ulist = new ArrayList<User>();
+////			PageList<User> pageList = new PageList<User>(ulist, pageNo, pageSize,totalSize);
+////			model.addAttribute("page", pageList);
+//			
+//	        return "user_list";
+//	    }
 	 	
 		@RequestMapping("/ajax_get")
 		@ResponseBody

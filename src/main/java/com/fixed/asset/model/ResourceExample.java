@@ -384,52 +384,52 @@ public class ResourceExample {
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeEqualTo(Boolean value) {
+        public Criteria andResourceTypeEqualTo(Integer value) {
             addCriterion("resource_type =", value, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeNotEqualTo(Boolean value) {
+        public Criteria andResourceTypeNotEqualTo(Integer value) {
             addCriterion("resource_type <>", value, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeGreaterThan(Boolean value) {
+        public Criteria andResourceTypeGreaterThan(Integer value) {
             addCriterion("resource_type >", value, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andResourceTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("resource_type >=", value, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeLessThan(Boolean value) {
+        public Criteria andResourceTypeLessThan(Integer value) {
             addCriterion("resource_type <", value, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeLessThanOrEqualTo(Boolean value) {
+        public Criteria andResourceTypeLessThanOrEqualTo(Integer value) {
             addCriterion("resource_type <=", value, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeIn(List<Boolean> values) {
+        public Criteria andResourceTypeIn(List<Integer> values) {
             addCriterion("resource_type in", values, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeNotIn(List<Boolean> values) {
+        public Criteria andResourceTypeNotIn(List<Integer> values) {
             addCriterion("resource_type not in", values, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeBetween(Boolean value1, Boolean value2) {
+        public Criteria andResourceTypeBetween(Integer value1, Integer value2) {
             addCriterion("resource_type between", value1, value2, "resourceType");
             return (Criteria) this;
         }
 
-        public Criteria andResourceTypeNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andResourceTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("resource_type not between", value1, value2, "resourceType");
             return (Criteria) this;
         }
@@ -491,6 +491,76 @@ public class ResourceExample {
 
         public Criteria andParentIdNotBetween(Integer value1, Integer value2) {
             addCriterion("parent_id not between", value1, value2, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIsNull() {
+            addCriterion("icon is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIsNotNull() {
+            addCriterion("icon is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconEqualTo(String value) {
+            addCriterion("icon =", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotEqualTo(String value) {
+            addCriterion("icon <>", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconGreaterThan(String value) {
+            addCriterion("icon >", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconGreaterThanOrEqualTo(String value) {
+            addCriterion("icon >=", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLessThan(String value) {
+            addCriterion("icon <", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLessThanOrEqualTo(String value) {
+            addCriterion("icon <=", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconLike(String value) {
+            addCriterion("icon like", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotLike(String value) {
+            addCriterion("icon not like", value, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconIn(List<String> values) {
+            addCriterion("icon in", values, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotIn(List<String> values) {
+            addCriterion("icon not in", values, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconBetween(String value1, String value2) {
+            addCriterion("icon between", value1, value2, "icon");
+            return (Criteria) this;
+        }
+
+        public Criteria andIconNotBetween(String value1, String value2) {
+            addCriterion("icon not between", value1, value2, "icon");
             return (Criteria) this;
         }
     }

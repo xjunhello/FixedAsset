@@ -24,5 +24,5 @@ public class Constants {
  	public static final int PAGESTART=0;
  	public static final int PAGENO=1;
 	public static final int PAGESIZE=10;
-	public static final int TOTALSIZE=0;
+	public static final long TOTALSIZE=0;
 }

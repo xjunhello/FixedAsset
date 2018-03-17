@@ -9,9 +9,11 @@ public class Resource {
 
     private String resourceUrl;
 
-    private Boolean resourceType;
+    private Integer resourceType;
 
     private Integer parentId;
+
+    private String icon;
 
     public Integer getResourceId() {
         return resourceId;
@@ -45,11 +47,11 @@ public class Resource {
         this.resourceUrl = resourceUrl == null ? null : resourceUrl.trim();
     }
 
-    public Boolean getResourceType() {
+    public Integer getResourceType() {
         return resourceType;
     }
 
-    public void setResourceType(Boolean resourceType) {
+    public void setResourceType(Integer resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -59,5 +61,13 @@ public class Resource {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon == null ? null : icon.trim();
     }
 }

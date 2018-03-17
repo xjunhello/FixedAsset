@@ -17,8 +17,8 @@ mybatis:
 logging:
   level:
     org.springframework.security: INFO
-    org.mybatis: debug
-    org.springframework: WARN
-    org.spring.springboot.dao: DEBUG
+    org.mybatis: INFO
+    org.springframework: INFO
+    org.spring.springboot.dao: INFO
     com.fixed.asset.mapper : debug
 #  file: logs/spring-boot-logging.log

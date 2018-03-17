@@ -8,6 +8,9 @@ spring:
       cache: false
       mode: LEGACYHTML5
       content-type: text/html; charset=utf-8
+    profiles:
+      active: dev
+      
 mybatis:
     type-aliases-package: com.xj2.fixed.model
     config-location: classpath:mybatis.xml
@@ -21,4 +24,5 @@ logging:
     org.springframework: INFO
     org.spring.springboot.dao: INFO
     com.fixed.asset.mapper : debug
-#  file: logs/spring-boot-logging.log
+
+

@@ -136,12 +136,12 @@ public class RoleController {
 	 	 */
 	 	@RequestMapping(value = "/save",method=RequestMethod.POST)
 	 	@ResponseBody
-	    public String save(HttpServletResponse response,Model model,Role role,String [] roleIds){
+	    public String save(HttpServletResponse response,Model model,Role role,String [] resourceIds){
 	 		try {
-	 			roleService.save(role,roleIds);
+	 			roleService.save(role,resourceIds);
 	 			return JsonMessage.success(response,op.ROLE_UPDATE);
 	 		}catch(Exception e) {
-	 			logger.error("用户管理：保存用户失败！", e);
+	 			logger.error("角色管理：保存角色失败！", e);
 	 			return JsonMessage.error(response, ControllerName);
 	 		}
 	    }

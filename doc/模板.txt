@@ -1,0 +1,27 @@
+1:分页查询
+<sql id="Page_Clause">
+  	 <if test="paged">
+      	limit ${pageStart},${pageSize}
+    </if>
+  </sql>
+
+  <select id="selectByExample" parameterType="com.fixed.asset.model.UserExample" resultMap="BaseResultMap">
+  select
+  <if test="distinct">
+    distinct
+  </if>
+  <include refid="Base_Column_List" />
+  from user
+  <if test="_parameter != null">
+    <include refid="Example_Where_Clause" />
+  </if>
+  <if test="orderByClause != null">
+    order by ${orderByClause}
+  </if>
+
+
+   <include refid="Page_Clause" />
+
+
+
+</select>

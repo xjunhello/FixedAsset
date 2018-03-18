@@ -122,10 +122,8 @@
 				    success : function(data, status) {//status 200
 						if (data.success) {
 							parent.successNotify(data.code,data.desc);
-						    setTimeout(() => {
-						    	parent.layer.closeAll('iframe'); 
-						    	parent.flushTable();
-							}, 2000);
+							parent.layer.closeAll('iframe'); 
+					    	parent.flushTable();
 						} else {
 							parent.errorNotify(data.code,data.desc);
 						}

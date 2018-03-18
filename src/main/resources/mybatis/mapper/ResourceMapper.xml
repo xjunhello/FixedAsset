@@ -11,6 +11,11 @@
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="order_no" jdbcType="INTEGER" property="orderNo" />
   </resultMap>
+  <sql id="Page_Clause">
+  	 <if test="paged">
+      	limit ${pageStart},${pageSize}
+    </if>
+  </sql>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -86,6 +91,8 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    <include refid="Page_Clause" />
+    
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

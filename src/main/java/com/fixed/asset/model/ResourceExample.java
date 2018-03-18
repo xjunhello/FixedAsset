@@ -3,7 +3,7 @@ package com.fixed.asset.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResourceExample {
+public class ResourceExample extends BaseExample{
     protected String orderByClause;
 
     protected boolean distinct;

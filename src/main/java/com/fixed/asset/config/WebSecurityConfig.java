@@ -26,23 +26,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.headers().frameOptions().disable();
-    	http.csrf().disable();
-    	
-        http.authorizeRequests()
-                .anyRequest().authenticated() // 登录后可以访问
-//                .antMatchers("/static/**").permitAll() //静态资源开放权限
-//                .antMatchers("/ALTE/**").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error")
-                .defaultSuccessUrl("/home")
-                .permitAll() //登录页面用户任意访问           
-                .and()
-                .logout().permitAll(); //注销行为任意访问
-        		
-        		
+		http.headers().frameOptions().disable();
+		http.csrf().disable();
+
+		http.authorizeRequests()
+			.anyRequest().authenticated()
+			.and().formLogin().loginPage("/login")
+				// 设置默认登录成功跳转页面
+				.defaultSuccessUrl("/home.html").failureUrl("/login?error").permitAll()
+			.and()
+				// 开启cookie保存用户数据
+				.rememberMe()
+				// 设置cookie有效期
+				.tokenValiditySeconds(60 * 60 * 24 * 7)
+				// 设置cookie的私钥
+				.key("fixed")
+			.and().logout()
+				// 默认注销行为为logout，可以通过下面的方式来修改
+				.logoutUrl("/logout")
+				// 设置注销成功后跳转页面，默认是跳转到登录页面
+				.logoutSuccessUrl("/login")
+				.permitAll();
     }
     
     @Override
@@ -50,5 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //解决静态资源被拦截的问题
         web.ignoring().antMatchers("/static/**");
         web.ignoring().antMatchers("/ALTE/**");
+        web.ignoring().antMatchers("/common/**");
     }
 }

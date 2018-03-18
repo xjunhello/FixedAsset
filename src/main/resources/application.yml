@@ -19,7 +19,7 @@ mybatis:
 #      lazy-loading-enabled: true
 logging:
   level:
-    org.springframework.security: INFO
+    org.springframework.security: debug
     org.mybatis: INFO
     org.springframework: INFO
     org.spring.springboot.dao: INFO

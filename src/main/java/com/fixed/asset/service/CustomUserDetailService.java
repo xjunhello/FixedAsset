@@ -36,10 +36,6 @@ public class CustomUserDetailService implements UserDetailsService {
 			throw new RuntimeException("系统错误！");
 		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		// 用于添加用户的权限。只要把用户权限添加到authorities 就万事大吉。
-//		for (Role role : us.get(0).getRoles()) {
-//			
-//		}
 		us.get(0).getRoles().forEach(role -> {
 			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 			System.out.println(role.getRoleName());

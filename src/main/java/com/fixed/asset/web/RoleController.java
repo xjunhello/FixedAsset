@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,11 +53,20 @@ public class RoleController {
 		@Autowired
 		RoleService roleSevice;
 		
+		/**
+		 * 公共代码 start
+		 */
 		public static final String ControllerName="角色管理";
+		public static final String ControllerCode="role_list";
 		@RequestMapping("/")
-	    public String get(Model model){
+	    public String get(Model model,HttpSession session){
+			session.setAttribute(Constants.CURRENT_MENU_KEY, ControllerCode);
 	        return "role_list";
 	    }
+		/**
+		 * 公共代码 end 
+		 */
+		
 		
 		@RequestMapping("/get")
 		@ResponseBody

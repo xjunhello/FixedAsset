@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fixed.asset.common.Constants;
 import com.fixed.asset.service.CustomUserDetailService;
 
 @Controller
@@ -20,11 +21,13 @@ public class HomeController {
 //	@Autowired
 //    SessionRegistry sessionRegistry;
 //	
-	@Autowired
-	private CustomUserDetailService service;
+//	@Autowired
+//	private CustomUserDetailService service;
 
 	@RequestMapping("/home")
 	public String index(Model model, HttpSession session) {
+		session.setAttribute("menuFolders", Constants.menuFolders);
+		session.setAttribute("menuUrls", Constants.menuUrls);
 		return "home";
 	}
 

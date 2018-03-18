@@ -5,6 +5,8 @@ import java.util.List;
 import com.fixed.asset.model.Resource;
 
 public class Constants {
+	//当前菜单
+	public static final String CURRENT_MENU_KEY="current_menu";
 	//菜单
 	public static List<Resource> menuFolders;
 	public static List<Resource> menuUrls;

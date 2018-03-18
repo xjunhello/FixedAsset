@@ -96,7 +96,7 @@
       <ul class="sidebar-menu" data-widget="tree" >
         <li class="header">功能模块</li>
         
-        <li class="active" th:class="${activeId == '0' } ? 'active' ">
+        <li th:class="${session.CURRENT_MENU.resourceName == 'home'} ? 'active' ">
           <a href="/home">
             <i class="fa fa-th"></i> <span>首页</span>
             <span class="pull-right-container">
@@ -105,7 +105,9 @@
           </a>
         </li>
         
-        <li class="treeview active" th:each="folder : ${session.menuFolders}" >
+        <li class="treeview" 
+        	th:each="folder : ${session.menuFolders}" 
+        	th:class="${session.CURRENT_FOLDER.resourceId == folder.resourceId} ? 'treeview active' : 'treeview'" >
           <a href="#">
             <i class="fa fa-pie-chart" th:class="${folder.icon}"></i>
             <span th:text="${folder.remark}"></span>
@@ -114,8 +116,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li th:each="menu : ${session.menuUrls}" th:class="${menu.resourceName == session.current_menu}">
-            	<a th:if="${menu.parentId == folder.resourceId}" href="pages/charts/chartjs.html" th:href="${menu.resourceUrl}" th:text="${menu.remark}">
+            <li th:each="menu : ${session.menuUrls}" 
+            th:class="${menu.resourceId == session.CURRENT_MENU.resourceId} ? 'active' : ''" 
+            th:id="${'menu_'+menu.resourceName}" 
+            th:if="${menu.parentId == folder.resourceId}">
+            	<a  href="pages/charts/chartjs.html" th:href="${menu.resourceUrl}" th:text="${menu.remark}">
             	<i class="fa fa-circle-o" th:class="${folder.icon}"></i>
               </a>
             </li>
@@ -124,9 +129,10 @@
         
       </ul>
     </section>
+
     <!-- /.sidebar -->
   </aside>
-  
+
     <!-- ----------------------------左侧菜单栏：结束 ------------------------------>
     
     <!-- ----------------------------页面底部：开始 ------------------------------>

@@ -23,6 +23,7 @@ import com.fixed.asset.common.Constants;
 import com.fixed.asset.common.DataTablePage;
 import com.fixed.asset.common.JsonMessage;
 import com.fixed.asset.common.op;
+import com.fixed.asset.config.CustomToolsUtils;
 import com.fixed.asset.model.Msg;
 import com.fixed.asset.model.MsgStat;
 import com.fixed.asset.model.Resource;
@@ -43,9 +44,6 @@ import com.google.gson.Gson;
 public class ResourceController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-//		@Autowired
-//		ResourceResourceService resourceResourceService;
 		
 		@Autowired
 		ResourceService resourceService;
@@ -53,20 +51,22 @@ public class ResourceController {
 		@Autowired
 		ResourceService resourceSevice;
 		
+		public static final String ControllerName="资源管理";
+		public static final String ControllerCode="resource_list";
+
 		/**
 		 * 公共代码 start
 		 */
-		public static final String ControllerName="资源管理";
-		public static final String ControllerCode="resource_list";
+		@Autowired
+		CustomToolsUtils commonTool;
 		@RequestMapping("/")
 	    public String get(Model model,HttpSession session){
-			session.setAttribute(Constants.CURRENT_MENU_KEY, ControllerCode);
-	        return "resource_list";
+			commonTool.setCurrentMenu(ControllerCode, session);
+	        return ControllerCode;
 	    }
 		/**
 		 * 公共代码 end 
 		 */
-		
 		
 		@RequestMapping("/get")
 		@ResponseBody

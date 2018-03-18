@@ -6,7 +6,8 @@ import com.fixed.asset.model.Resource;
 
 public class Constants {
 	//当前菜单
-	public static final String CURRENT_MENU_KEY="current_menu";
+	public static final String CURRENT_MENU_KEY="CURRENT_MENU";
+	public static final String CURRENT_FOLDER_KEY="CURRENT_FOLDER";
 	//菜单
 	public static List<Resource> menuFolders;
 	public static List<Resource> menuUrls;

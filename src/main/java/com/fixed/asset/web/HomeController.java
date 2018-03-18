@@ -13,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fixed.asset.common.Constants;
+import com.fixed.asset.model.Resource;
+import com.fixed.asset.model.ResourceExample;
 import com.fixed.asset.service.CustomUserDetailService;
+import com.fixed.asset.service.ResourceService;
 
 @Controller
 public class HomeController {
@@ -24,10 +27,28 @@ public class HomeController {
 //	@Autowired
 //	private CustomUserDetailService service;
 
+	/**
+	 * 公共代码 start
+	 */
+	@Autowired
+	ResourceService resourceService;
+	public static final String ControllerName="首页";
+	public static final String ControllerCode="home";
+	/**
+	 * 公共代码 end 
+	 */
+	
 	@RequestMapping("/home")
 	public String index(Model model, HttpSession session) {
+		//TODO 需要改为登录时按照权限获取
 		session.setAttribute("menuFolders", Constants.menuFolders);
 		session.setAttribute("menuUrls", Constants.menuUrls);
+		Resource r = new Resource();
+		r.setResourceName(ControllerCode);
+		r.setRemark("首页");
+		r.setOrderNo(0);
+		session.setAttribute(Constants.CURRENT_MENU_KEY, r);
+		session.setAttribute(Constants.CURRENT_FOLDER_KEY, r);
 		return "home";
 	}
 

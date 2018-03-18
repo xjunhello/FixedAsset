@@ -24,10 +24,14 @@ import com.fixed.asset.common.DataTablePage;
 import com.fixed.asset.common.JsonMessage;
 import com.fixed.asset.common.PageList;
 import com.fixed.asset.common.op;
+import com.fixed.asset.config.CustomToolsUtils;
 import com.fixed.asset.model.Msg;
 import com.fixed.asset.model.MsgStat;
+import com.fixed.asset.model.Resource;
+import com.fixed.asset.model.ResourceExample;
 import com.fixed.asset.model.User;
 import com.fixed.asset.model.UserExample;
+import com.fixed.asset.service.ResourceService;
 import com.fixed.asset.service.RoleService;
 import com.fixed.asset.service.UserRoleService;
 import com.fixed.asset.service.UserService;
@@ -52,15 +56,19 @@ public class UserController {
 		@Autowired
 		RoleService roleSevice;
 		
+
+		public static final String ControllerName="用户管理";
+		public static final String ControllerCode="user_list";
+		
 		/**
 		 * 公共代码 start
 		 */
-		public static final String ControllerName="用户管理";
-		public static final String ControllerCode="user_list";
+		@Autowired
+		CustomToolsUtils commonTool;
 		@RequestMapping("/")
 	    public String get(Model model,HttpSession session){
-			session.setAttribute(Constants.CURRENT_MENU_KEY, ControllerCode);
-	        return "user_list";
+			commonTool.setCurrentMenu(ControllerCode, session);
+	        return ControllerCode;
 	    }
 		/**
 		 * 公共代码 end 
@@ -75,7 +83,6 @@ public class UserController {
 				@RequestParam(value = "search", required = false) String  search,
 				@RequestParam(value = "sort", required = false) String orderBy){
 			System.out.println("搜索关键词："+keywords);
-			Map<String, Object> data = new HashMap<>();
 			
 	        UserExample example = new UserExample();
 	        example.setPaged(true);

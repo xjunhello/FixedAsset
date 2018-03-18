@@ -23,10 +23,14 @@ import com.fixed.asset.common.Constants;
 import com.fixed.asset.common.DataTablePage;
 import com.fixed.asset.common.JsonMessage;
 import com.fixed.asset.common.op;
+import com.fixed.asset.config.CustomToolsUtils;
 import com.fixed.asset.model.Msg;
 import com.fixed.asset.model.MsgStat;
+import com.fixed.asset.model.Resource;
+import com.fixed.asset.model.ResourceExample;
 import com.fixed.asset.model.Role;
 import com.fixed.asset.model.RoleExample;
+import com.fixed.asset.service.ResourceService;
 import com.fixed.asset.service.RoleService;
 import com.google.gson.Gson;
 
@@ -44,28 +48,33 @@ public class RoleController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-//		@Autowired
-//		RoleRoleService roleRoleService;
-		
 		@Autowired
 		RoleService roleService;
 	 	
 		@Autowired
 		RoleService roleSevice;
 		
+
+		@Autowired
+		ResourceService resourceService;
+		public static final String ControllerName="角色管理";
+		public static final String ControllerCode="role_list";
+		
+		
 		/**
 		 * 公共代码 start
 		 */
-		public static final String ControllerName="角色管理";
-		public static final String ControllerCode="role_list";
+		@Autowired
+		CustomToolsUtils commonTool;
 		@RequestMapping("/")
 	    public String get(Model model,HttpSession session){
-			session.setAttribute(Constants.CURRENT_MENU_KEY, ControllerCode);
-	        return "role_list";
+			commonTool.setCurrentMenu(ControllerCode, session);
+	        return ControllerCode;
 	    }
 		/**
 		 * 公共代码 end 
 		 */
+
 		
 		
 		@RequestMapping("/get")

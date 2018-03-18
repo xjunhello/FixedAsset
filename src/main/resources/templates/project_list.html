@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="/common/common_css :: commonHead('首页')">
+<meta content="text/html;charset=UTF-8" />
+<title sec:authentication="name"></title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" style="font-size: 11">
+	<div class="wrapper">
+		<header th:replace="/common/template :: header(1)"></header>
+		<!-- Left side column. contains the logo and sidebar -->
+		<aside class="main-sidebar" th:replace="/common/template :: menu('2','1')"></aside>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<section class="content-header" th:replace="/common/template :: breadcrumb('2')"></section>
+			<section class="content">
+				<!-- 数据 start-->
+				<div class="row">
+					<div class="col-lg-12 col-xs-12">
+						<div class="box box-primary">
+							<div class="box-header">
+								<form name="filter_form" class="form form-inline">
+										<div class="col-xs-12 col-sm-10 ">
+											<label for="keywords">关键词</label> 
+											<input type="text" class="form-control" placeholder="关键词" id="keywords" name="keywords"> 
+											
+											</div>
+											
+											<div class="col-xs-12 col-sm-2 ">
+											<div class="btn-toolbar">
+												<button type="button" class="btn btn-primary pull-right" onclick="addUser()">
+													<i class="fa fa-project-plus"></i> 新增
+												</button>
+												
+												<button type="button" class="btn btn-info pull-right" onclick="flushTable()">
+													<i class="fa fa-search"></i> 查询
+												</button>
+												
+											</div>
+											</div>
+								</form>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="example2" class="table table-bordered table-striped table-hover table-condensed" width="100%">
+									<thead>
+										<tr> 
+											<th>入库单编号</th>
+											<th>名称</th>
+											<th>申请人</th>
+											<th>申请时间</th>
+											<th>审批人</th>
+											<th>审批时间</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<!-- /.box-body -->
+						</div>
+						<!-- /.box -->
+
+					</div>
+				</div>
+				<!-- 数据 end  -->
+			</section>
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer" th:replace="/common/template :: footer"> </footer>
+
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<span th:replace="/common/common_js :: common"></span>
+	<span th:replace="/common/common_js :: layer"></span>
+
+	<!-- page script -->
+	<script type="text/javascript">
+		var moduleName="入库管理";
+		var module="入库单";
+		var form1Table;
+		function flushTable() {
+
+			var url = '/project/get';
+
+			form1Table.ajax.url(url).load();
+		}
+
+		function addUser() {
+			openWindow("新增"+module, "/project/modify");
+		}
+		
+		//绑定编辑按钮
+		function update(projectId){
+			openWindow("编辑"+module, "/project/modify/" + projectId);
+		}
+
+	
+
+		function deleteObj(projectId) {
+			var id = $(this).attr("value");
+			var formData = new FormData();
+			formData.append("projectIds", projectId);
+			$.ajax({
+				timeout : 20000,
+				type : "post",
+				processData : false,
+				contentType : false,
+				dataType : "json",
+				url : "/project/delete",
+				data : formData,
+				success : function(data, status) {//status 200
+					if (data.success) {console.log(data);
+						successNotify(data.code,data.desc);
+						flushTable();
+					} else {
+						errorNotify(data.code,data.desc);
+					}
+			    },
+			    error : function(data, status) {
+					errorNotify(data.error,data.message);
+			    }
+			});
+		}
+
+		$(function() {
+			//初始化表格
+			form1Table = $('#example2')
+					.DataTable(
+							{
+								"language" : {
+									"url" : "/ALTE/bower_components/datatables.net/datatable.zh_CN.lang"
+								},
+								"processing" : true,
+								searching : false,
+								autoWidth : true,
+								columnDefs : [
+										{
+											targets : 7,
+											render : function(a, b, c, d) {
+												var html=	" <button type=\"button\" class=\"btn btn-success btn-sm\" onclick=\"update("+c.projectId+")\">编辑</button>"
+												+ " <button type=\"button\" class=\"btn btn-danger btn-sm \" onclick=\"deleteObj("+c.projectId+")\">删除</button>";
+												
+												return html;
+											}
+										} ],
+								//开启服务器模式
+								serverSide : true,
+								ajax : {
+									url : '/project/get?keywords=',
+									dataSrc : 'data'
+								},
+								columns : [   
+								{
+									"data" : "projectCode"
+								}, {
+									"data" : "projectName"
+								}, {
+									"data" : "applyUserId"
+								}, {
+									"data" : "createTime"
+								}, {
+									"data" : "approvalUserId"
+								}, {
+									"data" : "approvalTime"
+								}, {
+									"data" : "projectStatus"
+								}, 
+								{
+									"data" : null,
+									"width" : "15%"
+								}, ]
+							});
+		});
+	</script>
+</body>
+</html>
